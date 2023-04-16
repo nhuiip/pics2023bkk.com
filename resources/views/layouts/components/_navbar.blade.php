@@ -21,9 +21,27 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('news.index') }}">News</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="dropdown">Travel and
-                                Accommodation</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{ route('hotels.index') }}">Travel
+                                and Accommodation</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="dropdown-item" href="#">Arriving at
+                                        Suvarnabhumi International Airport</a></li>
+                                <li class="nav-item"><a class="dropdown-item" href="#">Money Exchange</a>
+                                </li>
+                                <li class="nav-item"><a class="dropdown-item" href="#">Weather in
+                                        Bangkok</a></li>
+                                <li class="nav-item"><a class="dropdown-item" href="#">SIM card/Mobile
+                                        data</a></li>
+                                <li class="nav-item"><a class="dropdown-item" href="#">Traveling from the
+                                        airport to the hotel</a></li>
+                                <li class="nav-item"><a class="dropdown-item" href="#">Official hotel</a>
+                                </li>
+                                <li class="nav-item"><a class="dropdown-item" href="#">Thailand uses 220V
+                                        AC electricity</a></li>
+                                <li class="nav-item"><a class="dropdown-item" href="#">Bangkok Warnings
+                                        and Dangers</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-bs-toggle="dropdown">Programme</a>
