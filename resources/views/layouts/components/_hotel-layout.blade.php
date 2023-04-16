@@ -9,7 +9,13 @@
     <div class="col-lg-12">
         <div class="card shadow-lg">
             <div class="card-body row p-6">
-                <div class="col-4">
+                <div class="col-12">
+                    <h2 class="post-title h3 mt-1 mb-3 text-row"><a class="link-dark" href="#">
+                        {{ $value->name }}</a>
+                </h2>
+                <p><strong>{{ $value->remark }}</strong></p>
+                </div>
+                <div class="col-12 col-md-4">
                     <figure class="card-img-top overlay overlay-1"><a href="#">
                             <img src="{{ $image_url }}" srcset="{{ $image_url }}" alt=""><span
                                 class="bg"></span></a>
@@ -33,12 +39,8 @@
 
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-12 col-md-8">
                     <div class="post-header">
-                        <h2 class="post-title h3 mt-1 mb-3 text-row"><a class="link-dark" href="#">
-                                {{ $value->name }}</a>
-                        </h2>
-                        <p><strong>{{ $value->remark }}</strong></p>
                         {!! $value->content !!}
                     </div>
                 </div>
