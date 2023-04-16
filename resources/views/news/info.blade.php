@@ -11,7 +11,7 @@
                     <img src="{{ $data->image_url }}" alt="" class="w-100">
                 </div>
                 <div class="col-lg-12">
-                    {!! $data->content !!}
+                    {!! str_replace("<p>&nbsp;</p>", "", $data->content) !!}
                 </div>
             </div>
             <div class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5">
