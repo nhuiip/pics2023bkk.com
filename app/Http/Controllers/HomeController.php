@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,10 +13,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +21,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $announcement = News::where('is_announcement', true)
+            ->offset(0)
+            ->limit(5)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $news = News::where('is_announcement', false)
+            ->offset(0)
+            ->limit(3)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('home', [
+            'announcement' => $announcement,
+            'news' => $news,
+            'quote' => Setting::where('key', 'config-quote')->first(),
+        ]);
     }
 }

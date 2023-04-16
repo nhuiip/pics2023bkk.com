@@ -1,80 +1,146 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<head>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Thai FDA welcomes you to Thailand to attend the PIC/S Seminar on soft skills that make a good GMP/GDP inspector in 2023.">
+    <meta name="keywords" content="PIC/S">
+    <meta name="author" content="elemis">
+    <title>PIC/S 2023</title>
+    <link rel="shortcut icon" href="{{ asset('img/logo-title.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/plugins.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/colors/purple.css') }}">
+    <link rel="preload" href="{{ asset('css/fonts/space.css') }}" as="style" onload="this.rel='stylesheet'">
+    <!-- Plugin used-->
+    <style>
+        /* .navbar-brand {
+            width: 12% !important;
+        } */
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        /* carlendar */
+        .box-calendar {
+            box-shadow: 5px 5px 15px #bebebe, -5px -5px 15px #ffffff;
+            backdrop-filter: blur(25px);
+            border-bottom: solid 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+        .box-calendar div.month {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 7px 0;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            text-align: center;
+        }
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        .box-calendar div.info {
+            padding: 5px 0;
+            text-align: center;
+            line-height: 2.5rem;
+        }
+
+        .box-calendar div.info p.day,
+        .box-calendar div.info p.year {
+            font-size: 0.8rem;
+        }
+
+        .box-calendar div.info p.date {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .footer {
+            width: 100%;
+            height: 30vh;
+            mix-height: 200px;
+            background-color: #0b77b8;
+            background-repeat: no-repeat;
+            background-position: top right;
+            background-size: contain;
+        }
+
+        .footer .container {
+            height: 30vh;
+        }
+
+        .copyright {
+            color: #ffffff;
+            margin-top: 10vh;
+            display: block;
+            font-size: 0.65rem;
+        }
+
+        @media (max-width: 576px) {
+            .mt-12 {
+                margin-top: 0 !important;
+            }
+        }
+
+        .bg-gradient-blend hr {
+            border: #ffffff 1px solid;
+            opacity: 0.5;
+        }
+
+        .in-bg-gradient-blend {
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 500px;
+            position: absolute;
+            opacity: 0.5;
+        }
+
+        /* end */
+    </style>
+    @yield('style')
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+    <div class="content-wrapper" id="app">
+        @include('layouts.components._navbar')
+        @yield('content')
+        @include('layouts.components._footer')
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/theme.js') }}"></script>
+    <!-- Plugin used-->
+    {{-- @include('sweetalert::alert') --}}
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function favorite(e) {
+            let id = $(e).attr('data-id');
+            let url = $(e).attr('data-url');
+            let favorite = $(e).attr('data-favorite');
+            $.ajax({
+                url: url,
+                type: "PUT",
+                data: {
+                    favorite: parseInt(favorite) + 1,
+                },
+                success: function(data, textStatus, jqXHR) {
+                    $('.a-favorite-id-' + id).attr('data-favorite', data)
+                    $('.favorite-id-' + id).html(data);
+                },
+            });
+        }
+    </script>
+    @yield('script')
 </body>
+
 </html>
