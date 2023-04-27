@@ -53,7 +53,7 @@
                             <a class="nav-link" href="#" data-bs-toggle="dropdown">About us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="dropdown">Member Login</a>
+                            <a class="nav-link" href="{{ route('login') }}">Member Login</a>
                         </li>
                     </ul>
                 </div>
