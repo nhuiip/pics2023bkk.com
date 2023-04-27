@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PricingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('news', NewsController::class);
 Route::resource('hotels', HotelController::class);
+Route::resource('pricing', PricingController::class);
