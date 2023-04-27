@@ -2,6 +2,9 @@
     @php
         $image_url = '';
         $image = App\Models\HotelImage::where(['hotelId' => $value->id, 'is_cover' => true])->first();
+        $images = App\Models\HotelImage::where(['hotelId' => $value->id, 'is_cover' => true])
+            ->orderBy('is_cover', 'desc')
+            ->get();
         if ($image != null) {
             $image_url = $image->image_url;
         }
@@ -11,18 +14,27 @@
             <div class="card-body row p-6">
                 <div class="col-12">
                     <h2 class="post-title h3 mt-1 mb-3 text-row"><a class="link-dark" href="#">
-                        {{ $value->name }}</a>
-                </h2>
-                <p><strong>{{ $value->remark }}</strong></p>
+                            {{ $value->name }}</a>
+                    </h2>
+                    <p><strong>{{ $value->remark }}</strong></p>
                 </div>
                 <div class="col-12 col-md-4">
-                    <figure class="card-img-top overlay overlay-1"><a href="#">
+                    <figure class="overlay overlay-1 hover-scale rounded">
+
+                        <img data-id="myModal-{{ $value->id }}" onclick="openModal(this);currentSlide(1)"
+                            src="{{ $image_url }}" srcset="{{ $image_url }}" alt=""><span
+                            class="bg"></span>
+                        {{-- <figcaption>
+                            <h5 class="from-top mb-0">Image</h5>
+                        </figcaption> --}}
+                    </figure>
+                    {{-- <figure class="card-img-top overlay overlay-1"><a href="#">
                             <img src="{{ $image_url }}" srcset="{{ $image_url }}" alt=""><span
                                 class="bg"></span></a>
                         <figcaption>
-                            <h5 class="from-top mb-0">Read More</h5>
+                            <h5 class="from-top mb-0"><a href="{{ $image_url }}" data-glightbox data-gallery="g1">View More</a></h5>
                         </figcaption>
-                    </figure>
+                    </figure> --}}
                     <div class="mt-3">
                         <p class="m-0"><strong><i>Address</i> :</strong> {{ $value->address }}</p>
                         @if ($value->google_map != '' && $value->google_map != null)

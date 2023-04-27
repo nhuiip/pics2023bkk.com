@@ -13,7 +13,7 @@
                     <h2 class="post-title h3 mt-1 mb-3 text-row"><a class="link-dark" href="{{ route('news.show', $value->id) }}">
                             {{ \Illuminate\Support\Str::limit($value->name, $limit = 55, $end = '...') }}</a>
                     </h2>
-                    <p>{{ \Illuminate\Support\Str::limit(strip_tags($value->content), $limit = 180, $end = '...') }}
+                    <p>{{ \Illuminate\Support\Str::limit(strip_tags($value->content), $limit = 175, $end = '...') }}
                     </p>
                 </div>
                 <div class="post-footer">

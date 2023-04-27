@@ -25,21 +25,21 @@
                             <a class="nav-link dropdown-toggle" href="{{ route('hotels.index') }}">Travel
                                 and Accommodation</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="dropdown-item" href="#">Arriving at
+                                <li class="nav-item"><a class="nav-link scroll" href="#airport">Arriving at
                                         Suvarnabhumi International Airport</a></li>
-                                <li class="nav-item"><a class="dropdown-item" href="#">Money Exchange</a>
+                                <li class="nav-item scroll"><a class="nav-link scroll" href="#money-exchange">Money Exchange</a>
                                 </li>
-                                <li class="nav-item"><a class="dropdown-item" href="#">Weather in
+                                <li class="nav-item scroll"><a class="nav-link scroll" href="#weather-in-bangkok">Weather in
                                         Bangkok</a></li>
-                                <li class="nav-item"><a class="dropdown-item" href="#">SIM card/Mobile
+                                <li class="nav-item scroll"><a class="nav-link scroll" href="#sim-card">SIM card/Mobile
                                         data</a></li>
-                                <li class="nav-item"><a class="dropdown-item" href="#">Traveling from the
+                                <li class="nav-item scroll"><a class="nav-link scroll" href="#traveling">Traveling from the
                                         airport to the hotel</a></li>
-                                <li class="nav-item"><a class="dropdown-item" href="#">Official hotel</a>
+                                <li class="nav-item scroll"><a class="nav-link scroll" href="#hotel">Official hotel</a>
                                 </li>
-                                <li class="nav-item"><a class="dropdown-item" href="#">Thailand uses 220V
+                                <li class="nav-item scroll"><a class="nav-link scroll" href="#220v">Thailand uses 220V
                                         AC electricity</a></li>
-                                <li class="nav-item"><a class="dropdown-item" href="#">Bangkok Warnings
+                                <li class="nav-item scroll"><a class="nav-link scroll" href="#warnings">Bangkok Warnings
                                         and Dangers</a></li>
                             </ul>
                         </li>
