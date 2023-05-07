@@ -21,7 +21,8 @@
                                         <div class="card bg-transparent">
                                             <div class="card-body row p-0">
                                                 <div class="col-lg-6">
-                                                    <figure class="card-img-top overlay overlay-1"><a href="{{ route('news.show', $value->id) }}">
+                                                    <figure class="card-img-top overlay overlay-1"><a
+                                                            href="{{ route('news.show', $value->id) }}">
                                                             <img src="{{ $value->image_url }}"
                                                                 srcset="{{ $value->image_url }}" alt=""><span
                                                                 class="bg"></span></a>
@@ -75,8 +76,42 @@
 
         </div>
         <div class="container pt-0 pt-md-5">
-            <div class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5">
-                <div class="col-sm-2 col-md-3 col-lg-2 mt-12">
+            <div class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5 mt-1">
+                @foreach ($program as $key => $data)
+                    <div class="col-sm-2 col-md-3 col-lg-2 mt-0">
+                        <div class="{{ $data['date']['classBg'] }} box-calendar">
+                            <div class="month">
+                                {{ date('M', strtotime($data['date']['date'])) }}
+                            </div>
+                            <div class="info">
+                                <p class="day m-0">{{ date('l', strtotime($data['date']['date'])) }}</p>
+                                <p class="date m-0">{{ date('j', strtotime($data['date']['date'])) }}</p>
+                                <p class="year m-0">{{ date('Y', strtotime($data['date']['date'])) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-9 col-lg-10 mt-0">
+                        @foreach ($data['item'] as $item)
+                            <div class="card bg-transparent">
+                                <div class="card-body pl-5 pr-5 pt-3 pt-md-0 pb-3">
+                                    <span class="row justify-content-between align-items-center">
+                                        <span
+                                            class="col-sm-12 col-md-12 col-lg-12 mb-2 d-flex align-items-center text-body">
+                                            {{ $item->name }} </span>
+                                        <span class="col-12 col-md-12 col-lg-12 text-body d-flex align-items-center">
+                                            <i class="uil uil-location-arrow me-1"></i> Room: {{ $item->room }} </span>
+                                        <span class="col-12 col-md-12 col-lg-12 text-body d-flex align-items-center">
+                                            <i class="uil uil-clock me-1"></i> {{ date('h:i', strtotime($item->startTime)).' - '.date('h:i', strtotime($item->endTime)) }} </span>
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @if ($key != count($program) - 1)
+                        <hr class="m-3">
+                    @endif
+                @endforeach
+                {{-- <div class="col-sm-2 col-md-3 col-lg-2 mt-12">
                     <div class="bg-pale-leaf box-calendar">
                         <div class="month">
                             Nov
@@ -254,7 +289,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="overflow-hidden">
