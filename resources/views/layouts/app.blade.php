@@ -114,8 +114,8 @@
         @include('layouts.components._footer')
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="{{ asset('js/plugins.js') }}"></script>
-    <script src="{{ asset('js/theme.js') }}"></script>
+    {{-- <script src="{{ asset('js/plugins.js') }}"></script> --}}
+    {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
     <!-- Plugin used-->
     {{-- @include('sweetalert::alert') --}}
     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
@@ -144,49 +144,11 @@
             });
         }
 
-        var slideIndex = 1;
-        showSlides(slideIndex);
 
-        function openModal(e) {
-            let id = $(e).attr('data-id')
-            document.getElementById(id).style.display = "block";
-        }
-
-        function closeModal(e) {
-            let id = $(e).attr('data-id')
-            document.getElementById("myModal").style.display = "none";
-        }
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("demo");
-            var captionText = document.getElementById("caption");
-            if (n > slides.length) {
-                slideIndex = 1
-            }
-            if (n < 1) {
-                slideIndex = slides.length
-            }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-        }
     </script>
     @yield('script')
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/theme.js') }}"></script>
 </body>
 
 </html>

@@ -46,7 +46,7 @@
                         <p class="m-0"><strong><i>Email</i> :</strong> <a
                                 href="mailto:{{ $value->email }}">{{ $value->email }}</a>
                             <a href="{{ $value->roomrate }}" target="_blank" rel="noopener noreferrer">
-                                <p class="m-0"><strong><i><u>Room Rate</u></i></strong></p>
+                                <p class="m-0 btn btn-sm btn-info"><strong class="text-white"><i><u>Room Rate</u></i></strong></p>
                             </a>
 
                     </div>

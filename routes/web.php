@@ -3,6 +3,7 @@
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PricingController;
+use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('news', NewsController::class);
 Route::resource('hotels', HotelController::class);
+Route::resource('programs', ProgramController::class);
+Route::post('/programs/jsondata', [ProgramController::class, 'jsondata'])->name('programs.jsondata');
 Route::resource('pricing', PricingController::class);
