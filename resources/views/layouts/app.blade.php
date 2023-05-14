@@ -114,8 +114,8 @@
         @include('layouts.components._footer')
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    {{-- <script src="{{ asset('js/plugins.js') }}"></script> --}}
-    {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/theme.js') }}"></script>
     <!-- Plugin used-->
     {{-- @include('sweetalert::alert') --}}
     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
@@ -147,8 +147,8 @@
 
     </script>
     @yield('script')
-    <script src="{{ asset('js/plugins.js') }}"></script>
-    <script src="{{ asset('js/theme.js') }}"></script>
+    {{-- <script src="{{ asset('js/plugins.js') }}"></script> --}}
+    {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
 </body>
 
 </html>

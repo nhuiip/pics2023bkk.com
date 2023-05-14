@@ -388,6 +388,7 @@ var theme = {
           }
         }
       }
+      
       var sliderSpeed = slider1.getAttribute('data-speed') ? slider1.getAttribute('data-speed') : 500;
       var sliderAutoPlay = slider1.getAttribute('data-autoplay') !== 'false';
       var sliderAutoPlayTime = slider1.getAttribute('data-autoplaytime') ? slider1.getAttribute('data-autoplaytime') : 5000;
@@ -405,7 +406,8 @@ var theme = {
         spaceBetween: 10,
         loop: false,
         threshold: 2,
-        slideToClickedSlide: true
+        slideToClickedSlide: true,
+        observer: true
       });
       if (slider1.getAttribute('data-thumbs') === 'true') {
         var thumbsInit = sliderTh;
@@ -454,6 +456,7 @@ var theme = {
         autoHeight: sliderAutoHeight,
         grabCursor: true,
         resizeObserver: false,
+        observer: true,
         updateOnWindowResize: sliderResizeUpdate,
         breakpoints: breakpointsInit,
         pagination: {
@@ -583,7 +586,7 @@ var theme = {
   },
   /**
    * Loader
-   * 
+   *
    */
   loader: () => {
     var preloader = document.querySelector('.page-loader');
@@ -628,7 +631,7 @@ var theme = {
       progressWrap.addEventListener('click', function(e) {
         e.preventDefault();
         window.scroll({
-          top: 0, 
+          top: 0,
           left: 0,
           behavior: 'smooth'
         });
@@ -757,14 +760,14 @@ var theme = {
       "use strict";
       window.addEventListener("load", function() {
         var forms = document.querySelectorAll(".needs-validation");
-        var inputRecaptcha = document.querySelector("input[data-recaptcha]"); 
+        var inputRecaptcha = document.querySelector("input[data-recaptcha]");
         window.verifyRecaptchaCallback = function (response) {
-          inputRecaptcha.value = response; 
+          inputRecaptcha.value = response;
           inputRecaptcha.dispatchEvent(new Event("change"));
         }
         window.expiredRecaptchaCallback = function () {
-          var inputRecaptcha = document.querySelector("input[data-recaptcha]"); 
-          inputRecaptcha.value = ""; 
+          var inputRecaptcha = document.querySelector("input[data-recaptcha]");
+          inputRecaptcha.value = "";
           inputRecaptcha.dispatchEvent(new Event("change"));
         }
         var validation = Array.prototype.filter.call(forms, function(form) {
@@ -823,9 +826,9 @@ var theme = {
           passToggle.classList.add('uil-eye-slash');
         } else {
           passInput.type = "password";
-          passToggle.classList.remove('uil-eye-slash'); 
+          passToggle.classList.remove('uil-eye-slash');
           passToggle.classList.add('uil-eye');
-        } 
+        }
       }, false);
     }
   },
