@@ -47,8 +47,8 @@
                             <a class="nav-link" href="{{ route('programs.index') }}">Programme</a>
                         </li>
                         <li class="nav-item">
-                            {{-- <a class="nav-link" href="{{ route('pricing.index') }}">Registration & Fee</a> --}}
-                            <a class="nav-link" href="#">Registration & Fee</a>
+                            <a class="nav-link" href="{{ route('pricing.index') }}">Registration & Fee</a>
+                            {{-- <a class="nav-link" href="#">Registration & Fee</a> --}}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-bs-toggle="dropdown">About us</a>

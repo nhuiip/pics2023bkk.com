@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RegistrantGroup;
 use Illuminate\Http\Request;
 
 class PricingController extends Controller
@@ -11,7 +12,8 @@ class PricingController extends Controller
      */
     public function index()
     {
-        return view('pricing.main');
+        // $data = RegistrantGroup::all();
+        return view('pricing.main', ['data' => RegistrantGroup::all()]);
     }
 
     /**
