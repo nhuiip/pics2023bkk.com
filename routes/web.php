@@ -4,6 +4,7 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +26,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/aboutus', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::resource('news', NewsController::class);
 Route::resource('hotels', HotelController::class);
 Route::resource('programs', ProgramController::class);
 Route::post('/programs/jsondata', [ProgramController::class, 'jsondata'])->name('programs.jsondata');
 Route::resource('pricing', PricingController::class);
+Route::resource('register', RegisterController::class)->except(['index']);
+Route::get('/register/index/{registrantGroupId}/{registrantTypeId}', [RegisterController::class, 'index'])->name('register.index');

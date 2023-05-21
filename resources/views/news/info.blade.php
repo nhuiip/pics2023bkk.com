@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     @include('layouts.components._banner', ['data' => asset('img/banner-news.jpg')])
     <section class="wrapper bg-light">

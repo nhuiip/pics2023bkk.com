@@ -68,4 +68,11 @@ class HomeController extends Controller
             'quote' => Setting::where('key', 'config-quote')->first(),
         ]);
     }
+
+    public function about()
+    {
+        return view('about', [
+            'about' => Setting::where('key', 'config-aboutus')->first(),
+        ]);
+    }
 }

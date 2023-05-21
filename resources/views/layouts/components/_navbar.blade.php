@@ -51,7 +51,7 @@
                             {{-- <a class="nav-link" href="#">Registration & Fee</a> --}}
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="dropdown">About us</a>
+                            <a class="nav-link" href="{{ route('about') }}">About us</a>
                         </li>
                         <li class="nav-item">
                             {{-- <a class="nav-link" href="{{ route('login') }}">Member Login</a> --}}
