@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Association;
+use App\Models\Country;
 use App\Models\RegistrationFee;
 use App\Models\RegistrationRate;
 use Illuminate\Http\Request;
@@ -16,8 +18,14 @@ class RegisterController extends Controller
         $today = date('Y-m-d');
         $rate = RegistrationRate::where('startDate', '<=', $today)->where('endDate', '>=', $today)->first();
         $fee = RegistrationFee::with(['registrant_group', 'registrant_type', 'registration_rate'])->where(['registrationRateId' => $rate->id, 'registrantTypeId' => $registrantTypeId, 'registrantGroupId' => $registrantGroupId])->first();
-        
-        return view('register.main', ['data' => $fee]);
+        // dd($rate);
+        // dd($fee);
+        // die;
+
+        return view('register.main', [
+            'data' => $fee,
+            'countries' => Country::all(),
+        ]);
     }
 
     /**
@@ -66,5 +74,12 @@ class RegisterController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getassociations(Request $request)
+    {
+        $countryId = $request->countryId;
+        $data = Association::where('countryId', $countryId)->get();
+        return $data;
     }
 }

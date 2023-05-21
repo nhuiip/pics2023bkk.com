@@ -34,3 +34,4 @@ Route::post('/programs/jsondata', [ProgramController::class, 'jsondata'])->name(
 Route::resource('pricing', PricingController::class);
 Route::resource('register', RegisterController::class)->except(['index']);
 Route::get('/register/index/{registrantGroupId}/{registrantTypeId}', [RegisterController::class, 'index'])->name('register.index');
+Route::post('/register/getassociations', [RegisterController::class, 'getassociations'])->name('register.getassociations');

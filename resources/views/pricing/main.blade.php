@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @include('layouts.components._banner', ['data' => asset('img/banner-hotel.jpg')])
+    @include('layouts.components._banner', ['data' => asset('img/banner-register.jpg')])
 
     <section class="wrapper bg-light">
         <div class="container pt-10">

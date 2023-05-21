@@ -34,14 +34,6 @@
                             <input type="text" name="second_email" id="second_email" placeholder="Second E-mail"
                                 class="form-control form-control-lg">
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <input type="text" name="authority" id="authority" placeholder="Authority /Organisation"
-                                class="form-control form-control-lg">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <input type="text" name="professional_title" id="professional_title" placeholder="Professional Title"
-                                class="form-control form-control-lg">
-                        </div>
                         <div class="col-md-12 mb-3">
                             <input type="text" name="address" id="address" placeholder="Address (Department / Office)"
                                 class="form-control form-control-lg">
@@ -59,15 +51,35 @@
                                 class="form-control form-control-lg">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="text" name="country" id="country" placeholder="Country"
-                                class="form-control form-control-lg">
+                            <select name="country" id="country" class="form-control form-control-lg"
+                                onchange="getAssociation(this)">
+                                <option value="">Country</option>
+                                @foreach ($countries as $value)
+                                    <option value="{{ $value->id }}">{{ $value->nicename }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <input type="text" name="tel" id="tel" placeholder="Phone"
                                 class="form-control form-control-lg">
-                        </div><div class="col-md-6 mb-3">
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <input type="text" name="mobile_number" id="mobile_number" placeholder="Mobile Phone"
                                 class="form-control form-control-lg">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @if ($data->registrantTypeId == 1)
+                                <select name="authority" id="authority" class="form-control form-control-lg" disabled>
+                                    <option value="">Authority /Organisation</option>
+                                </select>
+                            @else
+                                <input type="text" name="authority" id="authority" placeholder="Authority /Organisation"
+                                    class="form-control form-control-lg">
+                            @endif
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input type="text" name="professional_title" id="professional_title"
+                                placeholder="Professional Title" class="form-control form-control-lg">
                         </div>
                     </div>
                 </div>
@@ -111,16 +123,50 @@
                     <h2 class="fs-16 text-uppercase text-muted mb-3">Other (optional)</h2>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <input type="text" name="dietary_restrictions" id="dietary_restrictions" placeholder="Dietary Restrictions"
-                                class="form-control form-control-lg">
+                            <input type="text" name="dietary_restrictions" id="dietary_restrictions"
+                                placeholder="Dietary Restrictions" class="form-control form-control-lg">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="text" name="special_requirements" id="special_requirements" placeholder="Special Requirements"
-                                class="form-control form-control-lg">
+                            <input type="text" name="special_requirements" id="special_requirements"
+                                placeholder="Special Requirements" class="form-control form-control-lg">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 m-0">
+                    <hr>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-lg btn-success w-100" disabled>Register</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+@endsection
+@section('script')
+    <script>
+        function getAssociation(e) {
+            let countryId = $(e).val()
+            $.ajax({
+                type: 'POST',
+                url: '{!! route('register.getassociations') !!}',
+                data: {
+                    countryId: countryId,
+                },
+                success: function(data) {
+                    $('select[id="authority"]').append('<option value="">Authority /Organisation</option>');
+                    if (data.length == 0) {
+                        $('select[id="authority"]').prop('disabled', true);
+                    } else {
+                        data.forEach(element => {
+                            $('select[id="authority"]').append('<option value="' + element.id + '">' + element
+                                .name + '</option>');
+                        });
+                        $('select[id="authority"]').prop('disabled', false);
+                    }
+                }
+            });
+        }
+    </script>
 @endsection
