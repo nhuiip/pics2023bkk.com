@@ -155,12 +155,14 @@
                     countryId: countryId,
                 },
                 success: function(data) {
+                    $('select[id="authority"]').find('option').remove();
                     $('select[id="authority"]').append('<option value="">Authority /Organisation</option>');
                     if (data.length == 0) {
                         $('select[id="authority"]').prop('disabled', true);
                     } else {
                         data.forEach(element => {
-                            $('select[id="authority"]').append('<option value="' + element.id + '">' + element
+                            $('select[id="authority"]').append('<option value="' + element.id + '">' +
+                                element
                                 .name + '</option>');
                         });
                         $('select[id="authority"]').prop('disabled', false);
