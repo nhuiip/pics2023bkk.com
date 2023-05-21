@@ -10,7 +10,7 @@
                 <div class="shape rounded-circle bg-line red rellax w-18 h-18 d-none d-lg-block" data-rellax-speed="1"
                     style="bottom: 2.5rem; left: -2.5rem; transform: translate3d(0px, 41px, 0px);"></div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <ul class="nav nav-tabs nav-tabs-basic" role="tablist">
                             @foreach ($data as $key => $value)
                                 <li class="nav-item" role="presentation"> <a
@@ -20,7 +20,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="col-md-4"
+                    {{-- <div class="col-md-4"
                         style="display: flex;flex-direction: column;flex-wrap: nowrap;justify-content: center;">
                         <div class="pricing-switcher-wrapper switcher">
                             <p class="mb-0 pe-3">Early Bird</p>
@@ -31,7 +31,7 @@
                             </div>
                             <p class="mb-0 ps-3">Standard</p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tab-content mt-0 mt-md-5">
                         @foreach ($data as $key => $value)
                             @php
@@ -42,7 +42,7 @@
                                 <div class="row gy-6 mt-3 mt-md-5">
                                     @foreach ($type as $key => $item)
                                         @php
-                                            $earlybird = App\Models\RegistrationFee::where(['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id, 'registrationRateId' => 1])->first();
+                                            // $earlybird = App\Models\RegistrationFee::where(['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id, 'registrationRateId' => 1])->first();
                                             $standard = App\Models\RegistrationFee::where(['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id, 'registrationRateId' => 2])->first();
                                         @endphp
                                         <div class="col-md-6 col-lg-4">
@@ -54,11 +54,11 @@
                                                     <div class="prices text-dark mb-5">
                                                         <div class="price price-show"><span
                                                                 class="price-currency">$</span><span
-                                                                class="price-value">{{ $earlybird->price }}</span></div>
-                                                        <div class="price price-hide price-hidden"><span
+                                                                class="price-value">{{ $standard->price }}</span></div>
+                                                        {{-- <div class="price price-hide price-hidden"><span
                                                                 class="price-currency">$</span><span
                                                                 class="price-value">{{ $standard->price }}</span>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                     <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
                                                         class="btn btn-primary rounded-pill">Choose Plan</a>
