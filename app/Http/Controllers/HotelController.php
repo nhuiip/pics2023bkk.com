@@ -13,7 +13,8 @@ class HotelController extends Controller
     public function index()
     {
         return view('hotel.main', [
-            'hotel' => Hotel::orderBy('seq', 'asc')->get(),
+            'official' => Hotel::where('is_official', true)->orderBy('seq', 'asc')->get(),
+            'hotel' => Hotel::where('is_official', false)->orderBy('seq', 'asc')->get(),
         ]);
     }
 

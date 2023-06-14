@@ -37,6 +37,12 @@ class HomeController extends Controller
         foreach ($programDate as $key => $value) {
             $classBg = '';
             switch (date('D', strtotime($value->date))) {
+                case 'Mon':
+                    $classBg = 'bg-pale-yellow';
+                    break;
+                case 'Tue':
+                    $classBg = 'bg-pale-pink';
+                    break;
                 case 'Wed':
                     $classBg = 'bg-pale-leaf';
                     break;
@@ -45,6 +51,12 @@ class HomeController extends Controller
                     break;
                 case 'Fri':
                     $classBg = 'bg-pale-blue';
+                    break;
+                case 'Sat':
+                    $classBg = 'bg-pale-purple';
+                    break;
+                case 'Sun':
+                    $classBg = 'bg-pale-red';
                     break;
             }
 

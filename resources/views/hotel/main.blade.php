@@ -93,7 +93,8 @@
             </div>
             <div id="traveling" class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5">
                 <div class="col-md-12">
-                    <h2 class="text-uppercase text-muted text-primary">Traveling from the airport to the hotel</h2>
+                    <h2 class="text-uppercase text-muted text-primary">Travelling from the airport to the official hotel &
+                        Venue</h2>
                     <p>There are 2 main transportations we recommend you to travel from the airport to hotel;
                     </p>
                     <img src="{{ asset('img/airport-transfer.png') }}" alt="" class="w-100 mb-3">
@@ -109,9 +110,12 @@
                                 they’re providing
                                 the pick up service from the airport to your hotel. Please check some of these links below
                             </p>
-                            <p dir="ltr" class="mb-0"><a href="www.limousine.in.th">www.limousine.in.th</a></p>
-                            <p dir="ltr" class="mb-0"><a href="www.blacklane.com">www.blacklane.com</a></p>
-                            <p dir="ltr" class="mb-0"><a href="www.enjoytaxibangkok.com">www.enjoytaxibangkok.com</a>
+                            <p dir="ltr" class="mb-0"><a href="https://www.limousine.in.th">www.limousine.in.th</a>
+                            </p>
+                            <p dir="ltr" class="mb-0"><a href="https://www.blacklane.com/en/">www.blacklane.com</a>
+                            </p>
+                            <p dir="ltr" class="mb-0"><a
+                                    href="https://www.enjoytaxibangkok.com/">www.enjoytaxibangkok.com</a>
                             </p>
                             <p dir="ltr" class="mb-0"><a
                                     href="https://www.grab.com/th/en/transport/taxi/ ">www.grab.com/th/en/transport/taxi
@@ -149,10 +153,15 @@
                     </div>
                 </div>
             </div>
+            <div id="official" class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5">
+                <h2 class="text-uppercase text-muted text-primary">Official hotel</h2>
+                @include('layouts.components._hotel-layout', ['data' => $official])
+            </div>
             <div id="hotel" class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5">
+                <h2 class="text-uppercase text-muted text-primary">Other surrounding hotel</h2>
                 @include('layouts.components._hotel-layout', ['data' => $hotel])
             </div>
-            <div id="220v" class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5">
+            <div id="electricity" class="row gx-lg-8 gx-xl-12 gy-10 mb-lg-5 mb-xl-5">
                 <div class="col-md-12">
                     <h2 class="text-uppercase text-muted text-primary">Thailand uses 220V AC electricity</h2>
                     <img src="{{ asset('img/220v.jpg') }}" alt="" class="w-100">
@@ -203,7 +212,13 @@
         integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        ! function(d, s, id) {
+        let url = window.location.href
+        let index = url.search("#");
+        if (index) {
+            let target = url.slice(index+1)
+            let el = document.getElementById(target);
+            el.scrollIntoView(true);
+        }! function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (!d.getElementById(id)) {
                 js = d.createElement(s);

@@ -68,7 +68,7 @@
                                 class="form-control form-control-lg">
                         </div>
                         <div class="col-md-6 mb-3">
-                            @if ($data->registrantTypeId == 1)
+                            @if ($data->registrantTypeId == 1 || $data->registrantTypeId == 2)
                                 <select name="authority" id="authority" class="form-control form-control-lg" disabled>
                                     <option value="">Authority /Organisation</option>
                                 </select>

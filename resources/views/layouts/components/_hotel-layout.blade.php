@@ -9,7 +9,7 @@
             $image_url = $image->image_url;
         }
     @endphp
-    <div class="col-lg-12">
+    <div class="col-lg-12 @if ($key == 0) mt-0 @else mt-3 @endif">
         <div class="card shadow-lg">
             <div class="card-body row p-6">
                 <div class="col-12">
@@ -24,17 +24,7 @@
                         <img data-id="myModal-{{ $value->id }}" onclick="openModal(this);currentSlide(1)"
                             src="{{ $image_url }}" srcset="{{ $image_url }}" alt=""><span
                             class="bg"></span>
-                        {{-- <figcaption>
-                            <h5 class="from-top mb-0">Image</h5>
-                        </figcaption> --}}
                     </figure>
-                    {{-- <figure class="card-img-top overlay overlay-1"><a href="#">
-                            <img src="{{ $image_url }}" srcset="{{ $image_url }}" alt=""><span
-                                class="bg"></span></a>
-                        <figcaption>
-                            <h5 class="from-top mb-0"><a href="{{ $image_url }}" data-glightbox data-gallery="g1">View More</a></h5>
-                        </figcaption>
-                    </figure> --}}
                     <div class="mt-3">
                         <p class="m-0"><strong><i>Address</i> :</strong> {{ $value->address }}</p>
                         @if ($value->google_map != '' && $value->google_map != null)
@@ -46,7 +36,8 @@
                         <p class="m-0"><strong><i>Email</i> :</strong> <a
                                 href="mailto:{{ $value->email }}">{{ $value->email }}</a>
                             <a href="{{ $value->roomrate }}" target="_blank" rel="noopener noreferrer">
-                                <p class="m-0 btn btn-sm btn-info"><strong class="text-white"><i><u>Room Rate</u></i></strong></p>
+                                <p class="m-0 btn btn-sm btn-info"><strong class="text-white"><i><u>Room
+                                                Rate</u></i></strong></p>
                             </a>
 
                     </div>

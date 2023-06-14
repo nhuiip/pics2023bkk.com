@@ -20,18 +20,6 @@
                             @endforeach
                         </ul>
                     </div>
-                    {{-- <div class="col-md-4"
-                        style="display: flex;flex-direction: column;flex-wrap: nowrap;justify-content: center;">
-                        <div class="pricing-switcher-wrapper switcher">
-                            <p class="mb-0 pe-3">Early Bird</p>
-                            <div class="pricing-switchers">
-                                <div class="pricing-switcher pricing-switcher-active"></div>
-                                <div class="pricing-switcher"></div>
-                                <div class="switcher-button bg-primary"></div>
-                            </div>
-                            <p class="mb-0 ps-3">Standard</p>
-                        </div>
-                    </div> --}}
                     <div class="tab-content mt-0 mt-md-5">
                         @foreach ($data as $key => $value)
                             @php
@@ -40,33 +28,41 @@
                             <div class="tab-pane fade @if ($key == 0) active show @endif"
                                 id="tab3-{{ $value->id }}" role="tabpanel">
                                 <div class="row gy-6 mt-3 mt-md-5">
+                                    @php
+                                        $hasData = App\Models\RegistrationFee::where(['registrantGroupId' => $value->id, 'registrationRateId' => 2, 'price' => 0])->count();
+                                        $class = $hasData == 1 ? 'col-lg-4' : 'col-lg-3';
+                                    @endphp
                                     @foreach ($type as $key => $item)
                                         @php
                                             // $earlybird = App\Models\RegistrationFee::where(['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id, 'registrationRateId' => 1])->first();
                                             $standard = App\Models\RegistrationFee::where(['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id, 'registrationRateId' => 2])->first();
                                         @endphp
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="pricing card text-center">
-                                                <div class="card-body" style="padding:2rem 1rem">
-                                                    <img src="{{ $item->image_url }}"
-                                                        class="icon-svg icon-svg-md text-primary mb-3" alt="">
-                                                    <h4 class="card-title">{{ $item->name }}</h4>
-                                                    <div class="prices text-dark mb-5">
-                                                        <div class="price price-show"><span
-                                                                class="price-currency">$</span><span
-                                                                class="price-value">{{ $standard->price }}</span></div>
-                                                        {{-- <div class="price price-hide price-hidden"><span
-                                                                class="price-currency">$</span><span
-                                                                class="price-value">{{ $standard->price }}</span>
-                                                        </div> --}}
+                                        @if ($standard->price != 0)
+                                            <div class="col-md-6 {{ $class }}">
+                                                <div class="pricing card text-center">
+                                                    <div class="card-body" style="padding:2rem 1rem">
+                                                        <img src="{{ $item->image_url }}"
+                                                            class="icon-svg icon-svg-md text-primary mb-3" alt="">
+                                                        <h4 class="card-title">
+                                                            @if ($item->id != 4)
+                                                                {{ $item->name }}
+                                                            @else
+                                                                Non-PIC/S<br>Members
+                                                            @endif
+                                                        </h4>
+                                                        <div class="prices text-dark mb-5">
+                                                            <div class="price price-show"><span
+                                                                    class="price-currency">$</span><span
+                                                                    class="price-value">{{ $standard->price }}</span></div>
+                                                        </div>
+                                                        <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
+                                                            class="btn btn-primary rounded-pill">Choose Plan</a>
                                                     </div>
-                                                    <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
-                                                        class="btn btn-primary rounded-pill">Choose Plan</a>
+                                                    <!--/.card-body -->
                                                 </div>
-                                                <!--/.card-body -->
+                                                <!--/.pricing -->
                                             </div>
-                                            <!--/.pricing -->
-                                        </div>
+                                        @endif
                                     @endforeach
                                     <!--/column -->
                                 </div>

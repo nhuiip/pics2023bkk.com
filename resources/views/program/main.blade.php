@@ -72,6 +72,7 @@
                     keyword: keyword
                 },
                 success: function(data) {
+                    console.log(data);
                     $('#data-programe').html('')
                     let key = 0;
                     data.forEach(element => {
@@ -100,6 +101,7 @@
                                 })
                             }
                             if (element.item) {
+                                console.log("element.item", element.item);
                                 element.item.forEach(item => {
                                     html += '<div class="swiper-slide">' +
                                         '<div class="item-inner">' +
@@ -129,12 +131,21 @@
                                 '<p class="day m-0">' + moment(element.date.date).format('D') +
                                 '</p>' +
                                 '</div>' +
+
                                 '<div class="card-program-data col-sm-12 col-md-10">' +
+
                                 '<div class="swiper-container swiper-' + key +
                                 ' dots-closer blog grid-view" data-margin="0" data-dots="true" data-items-lg="1" data-items-md="1" data-items-xs="1">' +
                                 '<div class="swiper">' +
                                 '<div class="swiper-wrapper">' +
                                 highlight +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="swiper-container swiper-' + key +
+                                ' dots-closer blog grid-view" data-margin="0" data-dots="true" data-items-lg="3" data-items-md="3" data-items-xs="2">' +
+                                '<div class="swiper">' +
+                                '<div class="swiper-wrapper">' +
+                                html +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -174,19 +185,19 @@
                                         .getAttribute('data-items-xs') : 1; // start - 575
                                     var sliderItemsSm = slider1.getAttribute('data-items-sm') ? slider1
                                         .getAttribute('data-items-sm') : Number(
-                                        sliderItemsXs); // 576 - 767
+                                            sliderItemsXs); // 576 - 767
                                     var sliderItemsMd = slider1.getAttribute('data-items-md') ? slider1
                                         .getAttribute('data-items-md') : Number(
-                                        sliderItemsSm); // 768 - 991
+                                            sliderItemsSm); // 768 - 991
                                     var sliderItemsLg = slider1.getAttribute('data-items-lg') ? slider1
                                         .getAttribute('data-items-lg') : Number(
-                                        sliderItemsMd); // 992 - 1199
+                                            sliderItemsMd); // 992 - 1199
                                     var sliderItemsXl = slider1.getAttribute('data-items-xl') ? slider1
                                         .getAttribute('data-items-xl') : Number(
-                                        sliderItemsLg); // 1200 - end
+                                            sliderItemsLg); // 1200 - end
                                     var sliderItemsXxl = slider1.getAttribute('data-items-xxl') ?
                                         slider1.getAttribute('data-items-xxl') : Number(
-                                        sliderItemsXl); // 1500 - end
+                                            sliderItemsXl); // 1500 - end
                                     var slidesPerViewInit = sliderItems;
                                     var breakpointsInit = {
                                         0: {
@@ -220,7 +231,7 @@
                                 var sliderResizeUpdate = slider1.getAttribute('data-resizeupdate') !==
                                     'false';
                                 var sliderAllowTouchMove = slider1.getAttribute('data-drag') !==
-                                'false';
+                                    'false';
                                 var sliderReverseDirection = slider1.getAttribute('data-reverse') ===
                                     'true';
                                 var sliderMargin = slider1.getAttribute('data-margin') ? slider1
@@ -253,7 +264,7 @@
                                         beforeInit: function() {
                                             if (slider1.getAttribute('data-nav') !==
                                                 'true' && slider1.getAttribute(
-                                                'data-dots') !== 'true') {
+                                                    'data-dots') !== 'true') {
                                                 controls.remove();
                                             }
                                             if (slider1.getAttribute('data-dots') !==

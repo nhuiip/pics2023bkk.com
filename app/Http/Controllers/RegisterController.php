@@ -21,10 +21,27 @@ class RegisterController extends Controller
         // dd($rate);
         // dd($fee);
         // die;
+        $countries = null;
+        switch ($registrantTypeId) {
+            case 1:
+                $countries = Country::whereHas('associations', function ($query) {
+                    $query->where('registrantTypeId', 1);
+                })->get();
+                break;
+            case 2:
+                $countries = Country::whereHas('associations', function ($query) {
+                    $query->where('registrantTypeId', 2);
+                })->get();
+                break;
 
+            default:
+                $countries = Country::all();
+                break;
+        }
+        
         return view('register.main', [
             'data' => $fee,
-            'countries' => Country::all(),
+            'countries' => $countries
         ]);
     }
 
