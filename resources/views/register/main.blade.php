@@ -68,7 +68,7 @@
                                 class="form-control form-control-lg">
                         </div>
                         <div class="col-md-6 mb-3">
-                            @if ($data->registrantTypeId == 1 || $data->registrantTypeId == 2)
+                            @if ($hasAssociation)
                                 <select name="authority" id="authority" class="form-control form-control-lg" disabled>
                                     <option value="">Authority /Organisation</option>
                                 </select>
@@ -148,11 +148,13 @@
     <script>
         function getAssociation(e) {
             let countryId = $(e).val()
+            let registrantTypeId = $('#registrantTypeId').val()
             $.ajax({
                 type: 'POST',
                 url: '{!! route('register.getassociations') !!}',
                 data: {
                     countryId: countryId,
+                    registrantTypeId: registrantTypeId,
                 },
                 success: function(data) {
                     $('select[id="authority"]').find('option').remove();

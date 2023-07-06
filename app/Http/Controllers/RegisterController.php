@@ -18,30 +18,22 @@ class RegisterController extends Controller
         $today = date('Y-m-d');
         $rate = RegistrationRate::where('startDate', '<=', $today)->where('endDate', '>=', $today)->first();
         $fee = RegistrationFee::with(['registrant_group', 'registrant_type', 'registration_rate'])->where(['registrationRateId' => $rate->id, 'registrantTypeId' => $registrantTypeId, 'registrantGroupId' => $registrantGroupId])->first();
-        // dd($rate);
-        // dd($fee);
-        // die;
-        $countries = null;
-        switch ($registrantTypeId) {
-            case 1:
-                $countries = Country::whereHas('associations', function ($query) {
-                    $query->where('registrantTypeId', 1);
-                })->get();
-                break;
-            case 2:
-                $countries = Country::whereHas('associations', function ($query) {
-                    $query->where('registrantTypeId', 2);
-                })->get();
-                break;
 
-            default:
-                $countries = Country::all();
-                break;
+        $countries = null;
+        $countAssociations = Association::where('registrantTypeId', $registrantTypeId)->count();
+
+        if ($countAssociations == 0) {
+            $countries = Country::all();
+        } else {
+            $countries = Country::whereHas('associations', function ($query) use ($registrantTypeId) {
+                $query->where('registrantTypeId', $registrantTypeId);
+            })->get();
         }
-        
+
         return view('register.main', [
             'data' => $fee,
-            'countries' => $countries
+            'countries' => $countries,
+            'hasAssociation' => $countAssociations > 0 ? true : false,
         ]);
     }
 
@@ -96,7 +88,8 @@ class RegisterController extends Controller
     public function getassociations(Request $request)
     {
         $countryId = $request->countryId;
-        $data = Association::where('countryId', $countryId)->get();
+        $registrantTypeId = $request->registrantTypeId;
+        $data = Association::where(['countryId'=> $countryId,'registrantTypeId' => $registrantTypeId])->get();
         return $data;
     }
 }
