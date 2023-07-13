@@ -95,7 +95,7 @@ class PaymentController extends Controller
         ];
 
         $client = new Client();
-        $response = $client->request('POST', env('CHILLPAY_Paylink'), [
+        $response = $client->request('POST', env('CHILLPAY_PaylinkDetail'), [
             'headers' => $header,
             'json' => $payload
         ]);
