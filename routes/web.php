@@ -39,3 +39,4 @@ Route::post('/register/getassociations', [RegisterController::class, 'getassocia
 Route::post('/payment/paylink', [PaymentController::class, 'paylink'])->name('payment.paylink');
 Route::post('/payment/result', [PaymentController::class, 'result'])->name('payment.result');
 Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+Route::get('/payment/testpaylink/{reference}', [PaymentController::class, 'testpaylink'])->name('payment.testpaylink');

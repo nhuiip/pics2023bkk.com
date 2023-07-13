@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegisterMail;
 use App\Models\Association;
 use App\Models\Country;
 use App\Models\Member;
 use App\Models\RegistrationFee;
 use App\Models\RegistrationRate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -86,7 +88,10 @@ class RegisterController extends Controller
         $data->address = $request->address . ' ' . $request->address_2;
         $data->save();
 
-        return redirect()->route('register.show', ['id' => $data->reference]);
+        // send email
+        Mail::to($data->email)->send(new RegisterMail($data));
+
+        return redirect()->route('register.show', $data->reference);
     }
 
     /**

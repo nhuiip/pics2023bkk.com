@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PaymentMail;
 use App\Models\Member;
 use App\Models\PaymentTransaction;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -101,12 +103,19 @@ class PaymentController extends Controller
         ]);
 
         $data = json_decode($response->getBody(), true);
-        $reference = $data['data']['productName'];
-        if($data['data']['paymentStatus'] == 'Success'){
-            $member = Member::where('reference', $reference)->first();
+        $reference = $data['data']['description'];
+        $member = Member::where('reference', $reference)->first();
+        if ($data['data']['status'] == 'Success') {
             $member->payment_method = 1;
             $member->payment_status = 2;
             $member->save();
+
+            // send email
+            Mail::to($member->email)->send(new PaymentMail($member));
+        } else {
+            $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
+            $transaction->isExpired = true;
+            $transaction->save();
         }
 
         return json_encode($data);
@@ -116,5 +125,50 @@ class PaymentController extends Controller
     {
         dd($request->all());
         die;
+    }
+
+    public function testpaylink($reference = 'M-20230713083250-00001'){
+
+        $member = Member::where('reference', $reference)->first();
+        $date = now();
+        $header = [
+            'Content-Type' => 'application/json',
+            'Accept' => '*/*',
+            'CHILLPAY-MerchantCode' => env('CHILLPAY_MerchantCode'),
+            'CHILLPAY-ApiKey' => env('CHILLPAY_ApiKey')
+        ];
+
+        $ProductImage = "";
+        $ProductName = $member->reference;
+        $ProductDescription = $member->registrant_group . ", " . $member->registration_type;
+        $PaymentLimit = 1;
+        $StartDate = date('d/m/Y h:i:s', strtotime($date));
+        $ExpiredDate = date('d/m/Y h:i:s', strtotime($date->addDay(1)));
+        $Currency = 'USD';
+        $Amount = $member->total . '00';
+
+        $rawData = $ProductImage . $ProductName . $ProductDescription . $PaymentLimit . $StartDate . $ExpiredDate . $Currency . $Amount;
+        $secretKey = env('CHILLPAY_SecretKey');
+        $checksum = Md5($rawData . $secretKey);
+
+        $payload = [
+            'ProductImage' => $ProductImage,
+            'ProductName' => $ProductName,
+            'ProductDescription' => $ProductDescription,
+            'PaymentLimit' => $PaymentLimit,
+            'StartDate' => $StartDate,
+            'ExpiredDate' => $ExpiredDate,
+            'Currency' => $Currency,
+            'Amount' => $Amount,
+            'Checksum' => $checksum
+        ];
+
+        $client = new Client();
+        $response = $client->request('POST', env('CHILLPAY_Paylink'), [
+            'headers' => $header,
+            'json' => $payload
+        ]);
+
+        return json_decode($response->getBody(), true);
     }
 }
