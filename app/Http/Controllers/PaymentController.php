@@ -78,8 +78,38 @@ class PaymentController extends Controller
 
     public function result(Request $request)
     {
-        dd($request->all());
-        die;
+        $TransactionId = $request->transNo;
+        $rawData = $TransactionId;
+        $secretKey = env('CHILLPAY_SecretKey');
+        $checksum = Md5($rawData . $secretKey);
+        $header = [
+            'Content-Type' => 'application/json',
+            'Accept' => '*/*',
+            'CHILLPAY-MerchantCode' => env('CHILLPAY_MerchantCode'),
+            'CHILLPAY-ApiKey' => env('CHILLPAY_ApiKey')
+        ];
+
+        $payload = [
+            'TransactionId' => $TransactionId,
+            'Checksum' => $checksum
+        ];
+
+        $client = new Client();
+        $response = $client->request('POST', env('CHILLPAY_Paylink'), [
+            'headers' => $header,
+            'json' => $payload
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+        $reference = $data['data']['productName'];
+        if($data['data']['paymentStatus'] == 'Success'){
+            $member = Member::where('reference', $reference)->first();
+            $member->payment_method = 1;
+            $member->payment_status = 2;
+            $member->save();
+        }
+
+        return json_encode($data);
     }
 
     public function callback(Request $request)
