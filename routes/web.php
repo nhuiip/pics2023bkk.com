@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RegisterController;
@@ -35,3 +36,6 @@ Route::resource('pricing', PricingController::class);
 Route::resource('register', RegisterController::class)->except(['index']);
 Route::get('/register/index/{registrantGroupId}/{registrantTypeId}', [RegisterController::class, 'index'])->name('register.index');
 Route::post('/register/getassociations', [RegisterController::class, 'getassociations'])->name('register.getassociations');
+Route::post('/payment/paylink', [PaymentController::class, 'paylink'])->name('payment.paylink');
+Route::post('/payment/result', [PaymentController::class, 'result'])->name('payment.result');
+Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');

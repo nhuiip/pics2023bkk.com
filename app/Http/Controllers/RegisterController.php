@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Association;
 use App\Models\Country;
+use App\Models\Member;
 use App\Models\RegistrationFee;
 use App\Models\RegistrationRate;
 use Illuminate\Http\Request;
@@ -42,7 +43,6 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -50,7 +50,43 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|email|max:255|unique:members',
+                'email_secondary' => 'required|email|max:255',
+                'title' => 'required|max:255',
+                'first_name' => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'address' => 'required|max:255',
+                'address_2' => 'max:255',
+                'city' => 'required|max:255',
+                'city_code' => 'required|max:255',
+                'country' => 'required',
+                'phone' => 'required|max:255',
+                'phone_mobile' => 'required|max:255',
+                'organization' => 'required|max:255',
+                'profession_title' => 'required|max:255',
+                'tax_id' => 'required|max:255',
+                'tax_phone' => 'required|max:255',
+                'dietary_restrictions' => 'max:255',
+                'special_requirements' => 'max:255',
+            ]
+        );
+
+        $data = new Member($request->all());
+        $data->save();
+
+        // update data
+        $reference = 'M-' . date('Ymdhis', strtotime($data->created_at)) . '-' . str_pad($data->id, 5, "0", STR_PAD_LEFT);
+        $password = Str(8);
+        $data->reference = $reference;
+        $data->password = bcrypt($password);
+        $data->password_raw = $password;
+        $data->address = $request->address . ' ' . $request->address_2;
+        $data->save();
+
+        return redirect()->route('register.show', ['id' => $data->reference]);
     }
 
     /**
@@ -58,7 +94,7 @@ class RegisterController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('register.payment', ['data' => Member::where('reference', $id)->first()]);
     }
 
     /**
@@ -89,7 +125,7 @@ class RegisterController extends Controller
     {
         $countryId = $request->countryId;
         $registrantTypeId = $request->registrantTypeId;
-        $data = Association::where(['countryId'=> $countryId,'registrantTypeId' => $registrantTypeId])->get();
+        $data = Association::where(['countryId' => $countryId, 'registrantTypeId' => $registrantTypeId])->get();
         return $data;
     }
 }
