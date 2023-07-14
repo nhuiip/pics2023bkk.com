@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PaymentMail;
 use App\Mail\RegisterMail;
 use App\Models\Association;
 use App\Models\Country;
@@ -92,6 +93,12 @@ class RegisterController extends Controller
         Mail::to($data->email)->send(new RegisterMail($data));
 
         return redirect()->route('register.show', $data->reference);
+    }
+
+    public function testmail($reference = 'M-20230713083250-00001')
+    {
+        $member = Member::where('reference', $reference)->first();
+        Mail::to($member->email)->send(new PaymentMail($member));
     }
 
     /**
