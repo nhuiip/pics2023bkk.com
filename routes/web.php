@@ -41,3 +41,4 @@ Route::post('/payment/result', [PaymentController::class, 'result'])->name('paym
 Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 Route::get('/payment/testpaylink/{reference}', [PaymentController::class, 'testpaylink'])->name('payment.testpaylink');
 Route::get('/payment/testpaylinkprod/{reference}', [PaymentController::class, 'testpaylinkprod'])->name('payment.testpaylinkprod');
+Route::get('/payment/testmail/{reference}', [PaymentController::class, 'testmail'])->name('payment.testmail');

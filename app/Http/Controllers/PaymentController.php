@@ -292,4 +292,10 @@ class PaymentController extends Controller
 
         return json_decode($response->getBody(), true);
     }
+
+    public function testmail($reference = 'M-20230713083250-00001')
+    {
+        $member = Member::where('reference', $reference)->first();
+        Mail::to($member->email)->send(new PaymentMail($member));
+    }
 }
