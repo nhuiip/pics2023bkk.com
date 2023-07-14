@@ -233,8 +233,7 @@
                                     <input class="form-check-input" type="checkbox" value="{{ true }}"
                                         name="isConsentCondition" id="isConsentCondition" onclick="checkConsent(this)">
                                     <label class="form-check-label" for="flexCheckDefault">The conferences handout
-                                        including content copyright by PICS Committee. editing, revising and copying are
-                                        prohibiteT</label>
+                                        including content copyright by PICS Committee. editing, revising and copying are prohibited</label>
                                 </div>
                             </div>
                         </div>
