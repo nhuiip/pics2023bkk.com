@@ -129,13 +129,17 @@ class PaymentController extends Controller
 
     public function testpaylink($reference = 'M-20230713083250-00001'){
 
+        $CHILLPAY_MerchantCode ="M034382";
+        $CHILLPAY_ApiKey ="t6ZUKW52GTzgQZ7SjQWEUPOV64Kv83MmQhwJqav2mf6YhR6NHPYy4J7SwfPL87LH";
+        $CHILLPAY_SecretKey ="du3ZJozmZeziq1ITwnRwiJc4MIU47S9UwSrwXOZfqNbT8735qkd9FIK2LrM3EMdHkuZKPtryoA4YfQwmMPyHZfETsJse0e0OBics8k16TcD8dD8am5ogRAmThhgudVixJ3i899Zqj6lVgwzhR8K5MZ5yXyEVlXl7daioN";
+
         $member = Member::where('reference', $reference)->first();
         $date = now();
         $header = [
             'Content-Type' => 'application/json',
             'Accept' => '*/*',
-            'CHILLPAY-MerchantCode' => env('CHILLPAY_MerchantCode'),
-            'CHILLPAY-ApiKey' => env('CHILLPAY_ApiKey')
+            'CHILLPAY-MerchantCode' => $CHILLPAY_MerchantCode,
+            'CHILLPAY-ApiKey' => $CHILLPAY_ApiKey
         ];
 
         $ProductImage = "";
@@ -148,7 +152,56 @@ class PaymentController extends Controller
         $Amount = $member->total . '00';
 
         $rawData = $ProductImage . $ProductName . $ProductDescription . $PaymentLimit . $StartDate . $ExpiredDate . $Currency . $Amount;
-        $secretKey = env('CHILLPAY_SecretKey');
+        $secretKey = $CHILLPAY_SecretKey;
+        $checksum = Md5($rawData . $secretKey);
+
+        $payload = [
+            'ProductImage' => $ProductImage,
+            'ProductName' => $ProductName,
+            'ProductDescription' => $ProductDescription,
+            'PaymentLimit' => $PaymentLimit,
+            'StartDate' => $StartDate,
+            'ExpiredDate' => $ExpiredDate,
+            'Currency' => $Currency,
+            'Amount' => $Amount,
+            'Checksum' => $checksum
+        ];
+
+        $client = new Client();
+        $response = $client->request('POST', env('CHILLPAY_Paylink'), [
+            'headers' => $header,
+            'json' => $payload
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    public function testpaylinkprod($reference = 'M-20230713083250-00001'){
+
+        $CHILLPAY_MerchantCode ="M034382";
+        $CHILLPAY_ApiKey ="fS03cRf0J3n6HYxbWn1mq0wWIqh9TMf5wyOYS5Ra0HecM4emEcn4THyYQNqSSYnu";
+        $CHILLPAY_SecretKey ="IiolpbZ8vdOLX101eW9L4YIKySKZz2ef9GJvuaGPPZmb9aBixaye3fFp6TsRkFPK6DmXb0sXxBzEfM50vkfUMnvpl3IqsPu2gZcBKacD6Q1T9zw9o84H842ld00nzUx9HSyYl1TqFBg9anLzXa8cTIGcnsG7FTOLaMule";
+
+        $member = Member::where('reference', $reference)->first();
+        $date = now();
+        $header = [
+            'Content-Type' => 'application/json',
+            'Accept' => '*/*',
+            'CHILLPAY-MerchantCode' => $CHILLPAY_MerchantCode,
+            'CHILLPAY-ApiKey' => $CHILLPAY_ApiKey
+        ];
+
+        $ProductImage = "";
+        $ProductName = $member->reference;
+        $ProductDescription = $member->registrant_group . ", " . $member->registration_type;
+        $PaymentLimit = 1;
+        $StartDate = date('d/m/Y h:i:s', strtotime($date));
+        $ExpiredDate = date('d/m/Y h:i:s', strtotime($date->addDay(1)));
+        $Currency = 'USD';
+        $Amount = $member->total . '00';
+
+        $rawData = $ProductImage . $ProductName . $ProductDescription . $PaymentLimit . $StartDate . $ExpiredDate . $Currency . $Amount;
+        $secretKey = $CHILLPAY_SecretKey;
         $checksum = Md5($rawData . $secretKey);
 
         $payload = [
