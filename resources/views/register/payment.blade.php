@@ -4,6 +4,14 @@
     <section class="wrapper bg-light">
         <div class="container pt-10">
             <div class="row justify-content-center">
+                <div class="col-md-12">
+                    @if (session('success'))
+                        <div class="alert alert-success text-center">{{ session('success') }}</div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger text-center">{{ session('error') }}</div>
+                    @endif
+                </div>
                 <div class="col-md-6">
                     <img src="{{ asset('img/logo.png') }}" alt="" class="w-100">
                 </div>

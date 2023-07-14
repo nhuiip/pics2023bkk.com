@@ -125,7 +125,7 @@ class PaymentController extends Controller
             // send email
             Mail::to($member->email)->send(new PaymentMail($member));
 
-            return redirect()->route('register.show', $member->reference);
+            return redirect()->route('register.show', $member->reference)->with('success', 'Payment Success');
         } else {
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
             $transaction->isExpired = true;
@@ -133,11 +133,11 @@ class PaymentController extends Controller
 
             switch ($data['data']['status']) {
                 case 'Cancel':
-                    return redirect()->route('register.show', $member->reference);
+                    return redirect()->route('register.show', $member->reference)->with('error', 'Payment Cancelled');
                     break;
 
                 default:
-                    return redirect()->route('register.show', $member->reference);
+                    return redirect()->route('register.show', $member->reference->with('error', 'Payment Failed'));
                     break;
             }
         }

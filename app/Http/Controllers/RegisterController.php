@@ -11,6 +11,7 @@ use App\Models\RegistrationFee;
 use App\Models\RegistrationRate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -82,7 +83,7 @@ class RegisterController extends Controller
 
         // update data
         $reference = 'M-' . date('Ymdhis', strtotime($data->created_at)) . '-' . str_pad($data->id, 5, "0", STR_PAD_LEFT);
-        $password = Str(8);
+        $password = Str::random(8);
         $data->reference = $reference;
         $data->password = bcrypt($password);
         $data->password_raw = $password;
