@@ -122,6 +122,10 @@ class PaymentController extends Controller
             $member->payment_status = 2;
             $member->save();
 
+            $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
+            $transaction->isExpired = true;
+            $transaction->save();
+
             // send email
             Mail::to($member->email)->send(new PaymentMail($member));
 
@@ -181,6 +185,10 @@ class PaymentController extends Controller
             $member->payment_method = 1;
             $member->payment_status = 2;
             $member->save();
+
+            $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
+            $transaction->isExpired = true;
+            $transaction->save();
 
             // send email
             Mail::to($member->email)->send(new PaymentMail($member));
