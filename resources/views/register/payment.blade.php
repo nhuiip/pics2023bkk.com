@@ -22,7 +22,14 @@
                     </div>
                     <hr class="my-3">
                     <input type="hidden" id="reference" value="{{ $data->reference }}">
-                    <button class="btn btn-primary w-100" onclick="getPaylink()">Pay Now</button>
+                    <button class="btn btn-primary w-100" onclick="getPaylink()"
+                        @if ($data->payment_status == 2) disabled @endif>
+                        @if ($data->payment_status == 2)
+                            Paid!
+                        @else
+                            Pay Now
+                        @endif
+                    </button>
                 </div>
             </div>
         </div>
