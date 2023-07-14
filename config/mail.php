@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => 'smtp',
 
     /*
     |--------------------------------------------------------------------------
@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'mail.pics2023bkk.com'),
-            'port' => env('MAIL_PORT', 465),
-            'encryption' => env('MAIL_ENCRYPTION', null),
-            'username' => env('MAIL_USERNAME', 'noreply@pics2023bkk.com'),
-            'password' => env('MAIL_PASSWORD', 'Wui8?56r9'),
+            'host' => 'mail.pics2023bkk.com',
+            'port' => 465,
+            'encryption' => null,
+            'username' => 'noreply@pics2023bkk.com',
+            'password' => 'Wui8?56r9',
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
@@ -98,8 +98,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'noreply@pics2023bkk.com'),
-        'name' => env('MAIL_FROM_NAME', 'pics2023bkk.com'),
+        'address' => 'noreply@pics2023bkk.com',
+        'name' => 'pics2023bkk.com',
     ],
 
     /*

@@ -34,8 +34,8 @@ class PaymentMail extends Mailable
         return new Envelope(
             // 2Eq78n8y$
             from: new Address(
-                env('MAIL_FROM_ADDRESS', 'noreply@pics2023bkk.com'),
-                env('MAIL_FROM_NAME', 'pics2023bkk.com')
+                'noreply@pics2023bkk.com',
+                'pics2023bkk.com'
             ),
             subject: 'pics2023bkk: Payment Confirmed',
         );
