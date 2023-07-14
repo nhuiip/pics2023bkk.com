@@ -55,8 +55,10 @@
                                                                     class="price-currency">$</span><span
                                                                     class="price-value">{{ $standard->price }}</span></div>
                                                         </div>
-                                                        <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
-                                                            class="btn btn-primary rounded-pill">Choose Plan</a>
+                                                        {{-- <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
+                                                            class="btn btn-primary rounded-pill">Choose Plan</a> --}}
+                                                        <a href="#" class="btn btn-primary rounded-pill">Choose
+                                                            Plan</a>
                                                     </div>
                                                     <!--/.card-body -->
                                                 </div>

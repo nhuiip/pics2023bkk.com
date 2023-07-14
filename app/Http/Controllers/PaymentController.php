@@ -13,18 +13,23 @@ class PaymentController extends Controller
 {
     public function paylink(Request $request)
     {
+        $CHILLPAY_MerchantCode = "M034382";
+        $CHILLPAY_ApiKey = "fS03cRf0J3n6HYxbWn1mq0wWIqh9TMf5wyOYS5Ra0HecM4emEcn4THyYQNqSSYnu";
+        $CHILLPAY_SecretKey = "IiolpbZ8vdOLX101eW9L4YIKySKZz2ef9GJvuaGPPZmb9aBixaye3fFp6TsRkFPK6DmXb0sXxBzEfM50vkfUMnvpl3IqsPu2gZcBKacD6Q1T9zw9o84H842ld00nzUx9HSyYl1TqFBg9anLzXa8cTIGcnsG7FTOLaMule";
+        $CHILLPAY_Paylink = "https://api-paylink.chillpay.co/api/v1/paylink/generate";
+
         $reference = $request->reference;
         $member = Member::where('reference', $reference)->first();
         $date = now();
         $preExpiredDate = $date->addMinute(-30);
 
-        $transaction = PaymentTransaction::where('memberId', $member->id)->where('ExpiredDate', '<=', $preExpiredDate)->first();
+        $transaction = PaymentTransaction::where('memberId', $member->id)->where('ExpiredDate', '<=', $preExpiredDate)->where('isExpired', false)->first();
         if ($transaction == null) {
             $header = [
                 'Content-Type' => 'application/json',
                 'Accept' => '*/*',
-                'CHILLPAY-MerchantCode' => env('CHILLPAY_MerchantCode'),
-                'CHILLPAY-ApiKey' => env('CHILLPAY_ApiKey')
+                'CHILLPAY-MerchantCode' => $CHILLPAY_MerchantCode,
+                'CHILLPAY-ApiKey' => $CHILLPAY_ApiKey
             ];
 
             $ProductImage = "";
@@ -37,7 +42,7 @@ class PaymentController extends Controller
             $Amount = $member->total . '00';
 
             $rawData = $ProductImage . $ProductName . $ProductDescription . $PaymentLimit . $StartDate . $ExpiredDate . $Currency . $Amount;
-            $secretKey = env('CHILLPAY_SecretKey');
+            $secretKey = $CHILLPAY_SecretKey;
             $checksum = Md5($rawData . $secretKey);
 
             $payload = [
@@ -53,7 +58,7 @@ class PaymentController extends Controller
             ];
 
             $client = new Client();
-            $response = $client->request('POST', env('CHILLPAY_Paylink'), [
+            $response = $client->request('POST', $CHILLPAY_Paylink, [
                 'headers' => $header,
                 'json' => $payload
             ]);
@@ -80,15 +85,20 @@ class PaymentController extends Controller
 
     public function result(Request $request)
     {
+        $CHILLPAY_MerchantCode = "M034382";
+        $CHILLPAY_ApiKey = "fS03cRf0J3n6HYxbWn1mq0wWIqh9TMf5wyOYS5Ra0HecM4emEcn4THyYQNqSSYnu";
+        $CHILLPAY_SecretKey = "IiolpbZ8vdOLX101eW9L4YIKySKZz2ef9GJvuaGPPZmb9aBixaye3fFp6TsRkFPK6DmXb0sXxBzEfM50vkfUMnvpl3IqsPu2gZcBKacD6Q1T9zw9o84H842ld00nzUx9HSyYl1TqFBg9anLzXa8cTIGcnsG7FTOLaMule";
+        $CHILLPAY_PaylinkDetail = "https://api-transaction.chillpay.co/api/v1/payment/details";
+
         $TransactionId = $request->transNo;
         $rawData = $TransactionId;
-        $secretKey = env('CHILLPAY_SecretKey');
+        $secretKey = $CHILLPAY_SecretKey;
         $checksum = Md5($rawData . $secretKey);
         $header = [
             'Content-Type' => 'application/json',
             'Accept' => '*/*',
-            'CHILLPAY-MerchantCode' => env('CHILLPAY_MerchantCode'),
-            'CHILLPAY-ApiKey' => env('CHILLPAY_ApiKey')
+            'CHILLPAY-MerchantCode' => $CHILLPAY_MerchantCode,
+            'CHILLPAY-ApiKey' => $CHILLPAY_ApiKey
         ];
 
         $payload = [
@@ -97,7 +107,7 @@ class PaymentController extends Controller
         ];
 
         $client = new Client();
-        $response = $client->request('POST', env('CHILLPAY_PaylinkDetail'), [
+        $response = $client->request('POST', $CHILLPAY_PaylinkDetail, [
             'headers' => $header,
             'json' => $payload
         ]);
