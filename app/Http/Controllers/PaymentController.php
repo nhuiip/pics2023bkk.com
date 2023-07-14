@@ -127,11 +127,13 @@ class PaymentController extends Controller
         die;
     }
 
-    public function testpaylink($reference = 'M-20230713083250-00001'){
+    public function testpaylink($reference = 'M-20230713083250-00001')
+    {
 
-        $CHILLPAY_MerchantCode ="M034382";
-        $CHILLPAY_ApiKey ="t6ZUKW52GTzgQZ7SjQWEUPOV64Kv83MmQhwJqav2mf6YhR6NHPYy4J7SwfPL87LH";
-        $CHILLPAY_SecretKey ="du3ZJozmZeziq1ITwnRwiJc4MIU47S9UwSrwXOZfqNbT8735qkd9FIK2LrM3EMdHkuZKPtryoA4YfQwmMPyHZfETsJse0e0OBics8k16TcD8dD8am5ogRAmThhgudVixJ3i899Zqj6lVgwzhR8K5MZ5yXyEVlXl7daioN";
+        $CHILLPAY_MerchantCode = "M034382";
+        $CHILLPAY_ApiKey = "t6ZUKW52GTzgQZ7SjQWEUPOV64Kv83MmQhwJqav2mf6YhR6NHPYy4J7SwfPL87LH";
+        $CHILLPAY_SecretKey = "du3ZJozmZeziq1ITwnRwiJc4MIU47S9UwSrwXOZfqNbT8735qkd9FIK2LrM3EMdHkuZKPtryoA4YfQwmMPyHZfETsJse0e0OBics8k16TcD8dD8am5ogRAmThhgudVixJ3i899Zqj6lVgwzhR8K5MZ5yXyEVlXl7daioN";
+        $CHILLPAY_Paylink = "https://sandbox-apipaylink.chillpay.co/api/v1/paylink/generate";
 
         $member = Member::where('reference', $reference)->first();
         $date = now();
@@ -168,7 +170,7 @@ class PaymentController extends Controller
         ];
 
         $client = new Client();
-        $response = $client->request('POST', env('CHILLPAY_Paylink'), [
+        $response = $client->request('POST', $CHILLPAY_Paylink, [
             'headers' => $header,
             'json' => $payload
         ]);
@@ -176,11 +178,13 @@ class PaymentController extends Controller
         return json_decode($response->getBody(), true);
     }
 
-    public function testpaylinkprod($reference = 'M-20230713083250-00001'){
+    public function testpaylinkprod($reference = 'M-20230713083250-00001')
+    {
 
-        $CHILLPAY_MerchantCode ="M034382";
-        $CHILLPAY_ApiKey ="fS03cRf0J3n6HYxbWn1mq0wWIqh9TMf5wyOYS5Ra0HecM4emEcn4THyYQNqSSYnu";
-        $CHILLPAY_SecretKey ="IiolpbZ8vdOLX101eW9L4YIKySKZz2ef9GJvuaGPPZmb9aBixaye3fFp6TsRkFPK6DmXb0sXxBzEfM50vkfUMnvpl3IqsPu2gZcBKacD6Q1T9zw9o84H842ld00nzUx9HSyYl1TqFBg9anLzXa8cTIGcnsG7FTOLaMule";
+        $CHILLPAY_MerchantCode = "M034382";
+        $CHILLPAY_ApiKey = "fS03cRf0J3n6HYxbWn1mq0wWIqh9TMf5wyOYS5Ra0HecM4emEcn4THyYQNqSSYnu";
+        $CHILLPAY_SecretKey = "IiolpbZ8vdOLX101eW9L4YIKySKZz2ef9GJvuaGPPZmb9aBixaye3fFp6TsRkFPK6DmXb0sXxBzEfM50vkfUMnvpl3IqsPu2gZcBKacD6Q1T9zw9o84H842ld00nzUx9HSyYl1TqFBg9anLzXa8cTIGcnsG7FTOLaMule";
+        $CHILLPAY_Paylink = "https://api-paylink.chillpay.co/api/v1/paylink/generate";
 
         $member = Member::where('reference', $reference)->first();
         $date = now();
@@ -217,7 +221,7 @@ class PaymentController extends Controller
         ];
 
         $client = new Client();
-        $response = $client->request('POST', env('CHILLPAY_Paylink'), [
+        $response = $client->request('POST', $CHILLPAY_Paylink, [
             'headers' => $header,
             'json' => $payload
         ]);
