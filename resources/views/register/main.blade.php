@@ -124,11 +124,11 @@
                             <div class="col-md-6 mb-3">
                                 @if ($hasAssociation)
                                     <select name="organization" id="organization" class="form-control form-control-lg"
-                                    @if (empty(old('organization'))) disabled @endif>
+                                        @if (empty(old('organization'))) disabled @endif>
                                         @if (empty(old('organization')))
                                             <option value="">Authority /Organisation</option>
                                         @else
-                                            <option value="old('organization')">{{ old('organization') }}</option>
+                                            <option value="{{ old('organization') }}">{{ old('organization') }}</option>
                                         @endif
                                     </select>
                                 @else
@@ -166,7 +166,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <input type="hidden" name="registrantTypeId" id="registrantTypeId"
-                                value="{{ $data->registrant_type->id }}">
+                                    value="{{ $data->registrant_type->id }}">
                                 <input type="hidden" name="registration_type" id="registration_type"
                                     value="{{ $data->registrant_type->name }}">
                                 <select class="form-control form-control-lg" disabled>
@@ -289,7 +289,8 @@
                         $('select[id="organization"]').prop('disabled', true);
                     } else {
                         data.forEach(element => {
-                            $('select[id="organization"]').append('<option value="' + element.name + '">' +
+                            $('select[id="organization"]').append('<option value="' + element.name +
+                                '">' +
                                 element
                                 .name + '</option>');
                         });
