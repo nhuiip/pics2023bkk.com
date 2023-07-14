@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Program;
+use App\Models\ProgramsAttachment;
 use Illuminate\Http\Request;
 
 class ProgramController extends Controller
@@ -78,7 +79,7 @@ class ProgramController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('program.info',['data' => Program::find($id), 'attachment' => ProgramsAttachment::where('programId', $id)->get()]);
     }
 
     /**

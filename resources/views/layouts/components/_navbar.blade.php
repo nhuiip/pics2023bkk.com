@@ -25,21 +25,30 @@
                             <a class="nav-link dropdown-toggle" href="{{ route('hotels.index') }}">Travel
                                 and Accommodation</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#airport">Arriving at
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('hotels.index') }}#airport">Arriving at
                                         Suvarnabhumi International Airport</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#money-exchange">Money Exchange</a>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('hotels.index') }}#money-exchange">Money Exchange</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#weather-in-bangkok">Weather in
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('hotels.index') }}#weather-in-bangkok">Weather in
                                         Bangkok</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#sim-card">SIM card/Mobile
+                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#sim-card">SIM
+                                        card/Mobile
                                         data</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#traveling">Traveling from the
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('hotels.index') }}#traveling">Traveling from the
                                         airport to the hotel</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#official">Official hotel</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#hotel">Other surrounding hotel</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#electricity">Thailand uses 220V
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('hotels.index') }}#official">Official hotel</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('hotels.index') }}#hotel">Other
+                                        surrounding hotel</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('hotels.index') }}#electricity">Thailand uses 220V
                                         AC electricity</a></li>
-                                <li class="nav-item "><a class="nav-link" href="{{ route('hotels.index') }}#warnings">Bangkok Warnings
+                                <li class="nav-item "><a class="nav-link"
+                                        href="{{ route('hotels.index') }}#warnings">Bangkok Warnings
                                         and Dangers</a></li>
                             </ul>
                         </li>
@@ -54,8 +63,15 @@
                             <a class="nav-link" href="{{ route('about') }}">About us</a>
                         </li>
                         <li class="nav-item">
-                            {{-- <a class="nav-link" href="{{ route('login') }}">Member Login</a> --}}
-                            <a class="nav-link" href="#">Member Login</a>
+                            @auth
+                                <a class="nav-link text-primary" href="#">{{ Auth::user()->first_name }}
+                                    {{ Auth::user()->last_name }}</a>
+                            @endauth
+                            @guest
+                                <a class="nav-link" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#modal-signin">Member Login</a>
+                            @endguest
+                            {{-- <a class="nav-link" href="#">Member Login</a> --}}
                         </li>
                     </ul>
                 </div>
@@ -70,3 +86,4 @@
         </div>
     </nav>
 </header>
+@include('layouts.components._modal-login');

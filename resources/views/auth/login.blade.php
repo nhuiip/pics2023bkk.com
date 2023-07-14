@@ -10,37 +10,25 @@
                         <div class="card-body p-11 text-center">
                             <h2 class="mb-3 text-start">Welcome Back</h2>
                             <p class="lead mb-6 text-start">Fill your email and password to sign in.</p>
-                            <form class="text-start mb-3">
+                            <form class="text-start mb-3" method="POST" action="{{ route('login') }}" novalidate>
+                                @csrf
                                 <div class="form-floating mb-4">
-                                    <input type="email" class="form-control" placeholder="Email" id="loginEmail">
+                                    <input type="email" class="form-control" placeholder="Email" id="loginEmail"
+                                        name="email">
                                     <label for="loginEmail">Email</label>
                                 </div>
                                 <div class="form-floating password-field mb-4">
-                                    <input type="password" class="form-control" placeholder="Password" id="loginPassword">
+                                    <input type="password" class="form-control" placeholder="Password" id="loginPassword"
+                                        name="password">
                                     <span class="password-toggle"><i class="uil uil-eye"></i></span>
                                     <label for="loginPassword">Password</label>
                                 </div>
-                                <a class="btn btn-primary rounded-pill btn-login w-100 mb-2">Sign In</a>
+                                <button class="btn btn-primary rounded-pill btn-login w-100 mb-2" type="submit">Sign
+                                    In</button>
                             </form>
-                            <!-- /form -->
-                            {{-- <p class="mb-1"><a href="#" class="hover">Forgot Password?</a></p>
-                            <p class="mb-0">Don't have an account? <a href="./signup.html" class="hover">Sign up</a></p>
-                            <div class="divider-icon my-4">or</div>
-                            <nav class="nav social justify-content-center text-center">
-                                <a href="#" class="btn btn-circle btn-sm btn-google"><i
-                                        class="uil uil-google"></i></a>
-                                <a href="#" class="btn btn-circle btn-sm btn-facebook-f"><i
-                                        class="uil uil-facebook-f"></i></a>
-                                <a href="#" class="btn btn-circle btn-sm btn-twitter"><i
-                                        class="uil uil-twitter"></i></a>
-                            </nav> --}}
-                            <!--/.social -->
                         </div>
-                        <!--/.card-body -->
                     </div>
-                    <!--/.card -->
                 </div>
-                <!-- /column -->
             </div>
         </div>
     </section>

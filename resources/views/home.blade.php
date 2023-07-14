@@ -96,9 +96,11 @@
                                 <div class="card bg-transparent">
                                     <div class="card-body pl-5 pr-5 pt-3 pt-md-0 pb-3">
                                         <span class="row justify-content-between align-items-center">
-                                            <span
-                                                class="col-sm-12 col-md-12 col-lg-12 mb-2 d-flex align-items-center text-body">
-                                                {{ $item->name }} </span>
+                                            <a href="{{route('programs.show', $item->id)}}">
+                                                <span
+                                                    class="col-sm-12 col-md-12 col-lg-12 mb-2 d-flex align-items-center text-body">
+                                                    {{ $item->name }} </span>
+                                            </a>
                                             <span class="col-12 col-md-12 col-lg-12 text-body d-flex align-items-center">
                                                 <i class="uil uil-location-arrow me-1"></i> Room: {{ $item->room }}
                                             </span>

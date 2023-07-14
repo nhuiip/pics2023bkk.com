@@ -86,8 +86,10 @@
                                         '<article>' +
                                         '<div class="card">' +
                                         '<div class="card-body">' +
+                                        '<a href="/programs/' + item.id + '">' +
                                         '<h2 class="post-title h3 text-row">' + item.name +
                                         '</h2>' +
+                                        '</a>' +
                                         '<p>' + item.room + '</p>' +
                                         '<p class="m-0">' +
                                         moment(item.startTime).format('h:mm') +
@@ -108,8 +110,10 @@
                                         '<article>' +
                                         '<div class="card">' +
                                         '<div class="card-body">' +
+                                        '<a href="/programs/' + item.id + '">' +
                                         '<h2 class="post-title h3 text-row">' + item.name +
                                         '</h2>' +
+                                        '</a>' +
                                         '<p>' + item.room + '</p>' +
                                         '<p class="m-0">' + moment(item.startTime).format(
                                             'h:mm') +

@@ -9,10 +9,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Member
- * 
+ *
  * @property int $id
  * @property string|null $reference
  * @property string $email
@@ -44,12 +45,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $payment_status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Collection|PaymentTransaction[] $payment_transactions
  *
  * @package App\Models
  */
-class Member extends Model
+class Member extends Authenticatable
 {
 	protected $table = 'members';
 
