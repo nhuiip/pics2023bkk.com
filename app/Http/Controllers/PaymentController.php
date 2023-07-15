@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PaymentMail;
+use App\Mail\RegisterMail;
 use App\Models\Member;
 use App\Models\PaymentTransaction;
 use GuzzleHttp\Client;
@@ -301,9 +302,9 @@ class PaymentController extends Controller
         return json_decode($response->getBody(), true);
     }
 
-    public function testmail($reference = 'M-20230713083250-00001')
+    public function testmail($reference)
     {
         $member = Member::where('reference', $reference)->first();
-        Mail::to($member->email)->send(new PaymentMail($member));
+        Mail::to($member->email)->send(new RegisterMail($member));
     }
 }

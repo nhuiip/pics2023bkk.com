@@ -9,7 +9,7 @@ Please review the following details;
 <hr>
 <p>If the condition and registration fee are confirmed, please proceed to the payment. </p>
 <p>Payment should be made within 15 days of this registration.</p>
-<p>ONLINE PAYMENT GATEWAY: <a href="{{ env('APP_URL') }}/register/{{ $data->reference }}"><i><u>Cick here</u></i></a></p>
+<p>ONLINE PAYMENT GATEWAY: <a href="https://pics2023bkk.com/register/{{ $data->reference }}"><i><u>Cick here</u></i></a></p>
 <br>
 <p>Or by bank transfer (charges to be borne by payer) in favour of:</p>
 <p>Account Name: FOOD AND DRUG ADMINISTRATION FOUNDATION FOR PIC/S 2023</p>

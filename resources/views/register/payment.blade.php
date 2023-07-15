@@ -35,9 +35,23 @@
                         @if ($data->payment_status == 2)
                             Paid!
                         @else
-                            Pay Now
+                            Pay by credit card
                         @endif
                     </button>
+                    <hr class="my-3">
+                    <p>by bank transfer (charges to be borne by payer) in favour of:</p>
+                    <p>Account Name: FOOD AND DRUG ADMINISTRATION FOUNDATION FOR PIC/S 2023</p>
+                    <p>Account No: 142-0-32966-9</p>
+                    <p>Bank: KRUNG THAI BANK PUBLIC COMPANY LIMITED</p>
+                    <p>SWIFT Code: KRTHTHBK</p>
+                    <p>Address: BANGKOK, THAILAND</p>
+                    <p>Branch: Ministry of Public Health Tiwanon Branch (Branch Code 142) 88/20 1st Floor Block E Ministry
+                        of Public Health Moo 4 Soi Bamrat Naradul, Tiwanon Road, Talat Khwan, Mueang Nonthaburi, Nonthaburi,
+                        11000, THAILAND
+                    </p>
+                    <p>Account No: 142-0-32966-9</p>
+                    <br>
+                    <p>When your payment is completed, you will receive an email confirmation for further process. </p>
                 </div>
             </div>
         </div>
