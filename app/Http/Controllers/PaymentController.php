@@ -24,8 +24,8 @@ class PaymentController extends Controller
         $date = now();
         $preExpiredDate = $date->addMinute(-30);
 
-        $transaction = PaymentTransaction::where('memberId', $member->id)->where('ExpiredDate', '<=', $preExpiredDate)->where('isExpired', false)->first();
-        if ($transaction == null) {
+        // $transaction = PaymentTransaction::where('memberId', $member->id)->where('ExpiredDate', '<=', $preExpiredDate)->where('isExpired', false)->first();
+        // if ($transaction == null) {
             $header = [
                 'Content-Type' => 'application/json',
                 'Accept' => '*/*',
@@ -79,7 +79,7 @@ class PaymentController extends Controller
             $transaction->expiredDate = $expiredDate->getTimestamp();
             $transaction->isExpired = false;
             $transaction->save();
-        }
+        // }
 
         return json_encode($transaction);
     }
