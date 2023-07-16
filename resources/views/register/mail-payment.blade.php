@@ -6,7 +6,7 @@
     @endif {{ $data->last_name }}</p>
 <p>{{ $data->country }}, {{ $data->organization }}</p>
 <hr>
-<p>Please proceed to the website <a href="https://www.pics2023bkk.com/memberlogin"><u><i>Cick here</i></u></a> </p>
+<p>Please proceed to the website <a href="https://www.pics2023bkk.com"><u><i>Cick here</i></u></a> </p>
 <p>This login information is unique for individuals, please use Member login for the purpose of access to 2023 PIC/S
     Committee meeting and Seminar materials.</p>
 <p>Username: {{ $data->email }}</p>

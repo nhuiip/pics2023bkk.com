@@ -240,7 +240,7 @@
                         <div class="row justify-content-center mt-3">
                             <div class="col-md-4">
                                 <input type="hidden" name="total" id="total" value="{{ $data->price }}">
-                                <button type="submit" class="btn btn-lg btn-success w-100" disabled>Register</button>
+                                <button type="submit" class="btn btn-lg btn-success w-100 buttonRegister" disabled>Register</button>
                             </div>
                         </div>
                     </div>
@@ -301,9 +301,9 @@
 
         function checkConsent(e) {
             if ($('#isConsentPdpa').is(':checked') && $('#isConsentCondition').is(':checked')) {
-                $('button[type="submit"]').prop('disabled', false);
+                $('.buttonRegister').prop('disabled', false);
             } else {
-                $('button[type="submit"]').prop('disabled', true);
+                $('.buttonRegister').prop('disabled', true);
             }
         }
     </script>

@@ -49,7 +49,9 @@
                         of Public Health Moo 4 Soi Bamrat Naradul, Tiwanon Road, Talat Khwan, Mueang Nonthaburi, Nonthaburi,
                         11000, THAILAND
                     </p>
+                    <br>
                     <p>Account No: 142-0-32966-9</p>
+                    <p>remark If you make a payment by transfer, please send us a copy of your pay-in slip or any documents in proof of your payment by email to <a href="mailto:fdafoundationpayment@gmail.com">fdafoundationpayment@gmail.com</a></p>
                     <br>
                     <p>When your payment is completed, you will receive an email confirmation for further process. </p>
                 </div>

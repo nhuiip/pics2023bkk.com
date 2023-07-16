@@ -27,12 +27,12 @@
                         @endif
                     </div>
                     <div class="col-md-8 mt-0">
-
+                        {!! str_replace('<p>&nbsp;</p>', '', $data->content) !!}
                     </div>
                 @endauth
                 @guest
                     <div class="col-md-12 mt-0">
-
+                        {!! str_replace('<p>&nbsp;</p>', '', $data->content) !!}
                     </div>
                 @endguest
 
