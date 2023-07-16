@@ -43,9 +43,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $total
  * @property int $payment_method
  * @property int $payment_status
+ * @property string|null $receipt
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
+ * 
+ * @property Collection|MembersVisa[] $members_visas
  * @property Collection|PaymentTransaction[] $payment_transactions
  *
  * @package App\Models
@@ -93,8 +95,14 @@ class Member extends Authenticatable
 		'isConsentCondition',
 		'total',
 		'payment_method',
-		'payment_status'
+		'payment_status',
+		'receipt'
 	];
+
+	public function members_visas()
+	{
+		return $this->hasMany(MembersVisa::class, 'memberId');
+	}
 
 	public function payment_transactions()
 	{

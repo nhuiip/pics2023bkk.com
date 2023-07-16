@@ -9,15 +9,6 @@
                     <div class="col-12 text-center">
                         <h2 class="display-4 mb-3">Registration Form</h2>
                     </div>
-                    {{-- <div class="col-12">
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li class="text-danger">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div> --}}
                     <div class="col-12 m-0 form-group">
                         <h2 class="fs-16 text-uppercase text-muted mb-3">Applicant Details</h2>
                         <div class="row">

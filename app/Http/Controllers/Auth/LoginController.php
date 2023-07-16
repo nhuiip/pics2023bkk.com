@@ -57,7 +57,6 @@ class LoginController extends Controller
         ],
         [
             $this->username().'.required' => 'ข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง!',
-            $this->username().'.numeric' => 'กรุณากรอกเลขประจำตัวประชาชน!',
             $this->username().'.exists' => 'ไม่พบบัญชีผู้ใช้ กรุณาตรวจสอบอีกครั้ง!',
             'password.required' => 'ข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง!',
         ]);

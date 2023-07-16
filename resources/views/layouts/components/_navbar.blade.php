@@ -62,17 +62,36 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('about') }}">About us</a>
                         </li>
-                        <li class="nav-item">
-                            @auth
-                                <a class="nav-link text-primary" href="#">{{ Auth::user()->first_name }}
+                        @auth
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-primary" href="#"
+                                    data-bs-toggle="dropdown">{{ Auth::user()->first_name }}
                                     {{ Auth::user()->last_name }}</a>
-                            @endauth
-                            @guest
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('genpdf') }}">Visa Invitation letter</a>
+                                    </li>
+                                    @if (Auth::user()->receipt != null)
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ Auth::user()->receipt }}" download
+                                                target="_blank">Download Receipt</a>
+                                        </li>
+                                    @endif
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""
+                                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                            Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endauth
+                        @guest
+                            <li class="nav-item">
                                 <a class="nav-link" href="#" data-bs-toggle="modal"
                                     data-bs-target="#modal-signin">Member Login</a>
-                            @endguest
-                            {{-- <a class="nav-link" href="#">Member Login</a> --}}
-                        </li>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
@@ -86,4 +105,7 @@
         </div>
     </nav>
 </header>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
 @include('layouts.components._modal-login');

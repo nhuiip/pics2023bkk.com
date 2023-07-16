@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Member;
+use App\Models\MembersVisa;
 use App\Models\News;
 use App\Models\Program;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use PDF;
 
 class HomeController extends Controller
 {
@@ -86,5 +91,51 @@ class HomeController extends Controller
         return view('about', [
             'about' => Setting::where('key', 'config-aboutus')->first(),
         ]);
+    }
+
+    public function visa()
+    {
+        return view('visa');
+    }
+
+    public function visastore(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'memberId' => 'required',
+                'nationality' => 'required',
+                'gender' => 'required',
+                'identification_number' => 'required',
+                'passport_number' => 'required',
+                'passport_expiry_date' => 'required',
+                'passport_issue_date' => 'required',
+                'place_of_birth' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ]
+        );
+        $data = new MembersVisa($request->all());
+        $data->save();
+
+        $visa = Member::with('members_visas')->where('id', Auth::user()->id)->first();
+        $pdf = Pdf::loadView('pdf', ['data' => $visa]);
+        // $pdf->download(date('YmdhisA', strtotime(now())) . '.pdf');
+
+        // return redirect()->route('home');
+        return $pdf->stream();
+    }
+
+    public function genpdf()
+    {
+        $data = Member::with('members_visas')->where('id', Auth::user()->id)->first();
+        if ($data->members_visas->count() == 0) {
+            return redirect()->route('visa', ['countries' => Country::all()]);
+        } else {
+            $pdf = Pdf::loadView('pdf', ['data' => $data]);
+
+            // return $pdf->stream();
+            return $pdf->download(date('YmdhisA', strtotime(now())) . '.pdf');
+        }
     }
 }
