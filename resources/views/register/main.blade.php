@@ -41,14 +41,14 @@
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="text" name="email" id="email" placeholder="E-mail"
+                                <input type="email" name="email" id="email" placeholder="E-mail"
                                     class="form-control form-control-lg" value="{{ old('email') }}">
                                 @error('email')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="text" name="email_secondary" id="email_secondary"
+                                <input type="email" name="email_secondary" id="email_secondary"
                                     placeholder="Second E-mail" class="form-control form-control-lg"
                                     value="{{ old('email_secondary') }}">
                                 @error('email_secondary')
@@ -224,14 +224,16 @@
                                     <input class="form-check-input" type="checkbox" value="{{ true }}"
                                         name="isConsentCondition" id="isConsentCondition" onclick="checkConsent(this)">
                                     <label class="form-check-label" for="flexCheckDefault">The conferences handout
-                                        including content copyright by PICS Committee. editing, revising and copying are prohibited</label>
+                                        including content copyright by PICS Committee. editing, revising and copying are
+                                        prohibited</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-3">
                             <div class="col-md-4">
                                 <input type="hidden" name="total" id="total" value="{{ $data->price }}">
-                                <button type="submit" class="btn btn-lg btn-success w-100 buttonRegister" disabled>Register</button>
+                                <button type="submit" class="btn btn-lg btn-success w-100 buttonRegister"
+                                    disabled>Register</button>
                             </div>
                         </div>
                     </div>
@@ -246,17 +248,27 @@
     <script>
         checkConsent()
 
-        $('input').keypress(function(event) {
-            var ew = event.which;
-            if (ew == 32)
-                return true;
-            if (48 <= ew && ew <= 57)
-                return true;
-            if (65 <= ew && ew <= 90)
-                return true;
-            if (97 <= ew && ew <= 122)
-                return true;
-            return false;
+        // $('input').keypress(function(event) {
+        //     var ew = event.which;
+        //     if (ew == 32)
+        //         return true;
+        //     if (48 <= ew && ew <= 57)
+        //         return true;
+        //     if (65 <= ew && ew <= 90)
+        //         return true;
+        //     if (97 <= ew && ew <= 122)
+        //         return true;
+        //     return false;
+        //     // ^([a-zA-Z0-9!@#$%^*_|:/.])+$
+        // });
+
+        $('input').keypress(function() {
+            var val = String.fromCharCode(event.keyCode);
+            var formatter = /^([a-zA-Z0-9!@#$%^*-_'|:/.(){}"])+$/;
+            if (!formatter.test(val)) {
+                return false;
+            }
+            return true;
         });
 
         function getAssociation(e) {
