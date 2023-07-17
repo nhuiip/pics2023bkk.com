@@ -112,8 +112,13 @@
         @include('layouts.components._navbar')
         @yield('content')
         @include('layouts.components._footer')
+        @if (isset($_COOKIE['displayPopup']) && $_COOKIE['displayPopup'] != 'true')
+            @include('layouts.components._modal')
+        @endif
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {{-- <script type="text/javascript" src=""></script> --}}
+
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/theme.js') }}"></script>
     <!-- Plugin used-->
@@ -143,12 +148,23 @@
                 },
             });
         }
-
-
+    </script>
+    <script>
+        $('#modalAnnouncement').on('hidden.bs.modal', function() {
+            // localStorage.setItem('displayPopup', 'true');
+            var expires;
+            var days = 1
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie = "displayPopup" + "=" + "true" + expires + "; path=/";
+        })
     </script>
     @yield('script')
-    {{-- <script src="{{ asset('js/plugins.js') }}"></script> --}}
-    {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
 </body>
 
 </html>

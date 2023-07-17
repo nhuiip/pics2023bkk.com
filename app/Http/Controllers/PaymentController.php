@@ -26,59 +26,59 @@ class PaymentController extends Controller
 
         // $transaction = PaymentTransaction::where('memberId', $member->id)->where('ExpiredDate', '<=', $preExpiredDate)->where('isExpired', false)->first();
         // if ($transaction == null) {
-            $header = [
-                'Content-Type' => 'application/json',
-                'Accept' => '*/*',
-                'CHILLPAY-MerchantCode' => $CHILLPAY_MerchantCode,
-                'CHILLPAY-ApiKey' => $CHILLPAY_ApiKey
-            ];
+        $header = [
+            'Content-Type' => 'application/json',
+            'Accept' => '*/*',
+            'CHILLPAY-MerchantCode' => $CHILLPAY_MerchantCode,
+            'CHILLPAY-ApiKey' => $CHILLPAY_ApiKey
+        ];
 
-            $ProductImage = "";
-            $ProductName = $member->reference;
-            $ProductDescription = $member->registrant_group . ", " . $member->registration_type;
-            $PaymentLimit = 1;
-            $StartDate = date('d/m/Y h:i:s', strtotime($date));
-            $ExpiredDate = date('d/m/Y h:i:s', strtotime($date->addDay(1)));
-            $Currency = 'USD';
-            $Amount = $member->total . '00';
+        $ProductImage = "";
+        $ProductName = $member->reference;
+        $ProductDescription = $member->registrant_group . ", " . $member->registration_type;
+        $PaymentLimit = 1;
+        $StartDate = date('d/m/Y h:i:s', strtotime($date));
+        $ExpiredDate = date('d/m/Y h:i:s', strtotime($date->addDay(1)));
+        $Currency = 'USD';
+        $Amount = $member->total . '00';
 
-            $rawData = $ProductImage . $ProductName . $ProductDescription . $PaymentLimit . $StartDate . $ExpiredDate . $Currency . $Amount;
-            $secretKey = $CHILLPAY_SecretKey;
-            $checksum = Md5($rawData . $secretKey);
+        $rawData = $ProductImage . $ProductName . $ProductDescription . $PaymentLimit . $StartDate . $ExpiredDate . $Currency . $Amount;
+        $secretKey = $CHILLPAY_SecretKey;
+        $checksum = Md5($rawData . $secretKey);
 
-            $payload = [
-                'ProductImage' => $ProductImage,
-                'ProductName' => $ProductName,
-                'ProductDescription' => $ProductDescription,
-                'PaymentLimit' => $PaymentLimit,
-                'StartDate' => $StartDate,
-                'ExpiredDate' => $ExpiredDate,
-                'Currency' => $Currency,
-                'Amount' => $Amount,
-                'Checksum' => $checksum
-            ];
+        $payload = [
+            'ProductImage' => $ProductImage,
+            'ProductName' => $ProductName,
+            'ProductDescription' => $ProductDescription,
+            'PaymentLimit' => $PaymentLimit,
+            'StartDate' => $StartDate,
+            'ExpiredDate' => $ExpiredDate,
+            'Currency' => $Currency,
+            'Amount' => $Amount,
+            'Checksum' => $checksum
+        ];
 
-            $client = new Client();
-            $response = $client->request('POST', $CHILLPAY_Paylink, [
-                'headers' => $header,
-                'json' => $payload
-            ]);
+        $client = new Client();
+        $response = $client->request('POST', $CHILLPAY_Paylink, [
+            'headers' => $header,
+            'json' => $payload
+        ]);
 
-            $data = json_decode($response->getBody(), true);
-            $startDate = date_create_from_format('d/m/Y H:i:s', $data['data']['startDate']);
-            $expiredDate = date_create_from_format('d/m/Y H:i:s', $data['data']['startDate']);
+        $data = json_decode($response->getBody(), true);
+        $startDate = date_create_from_format('d/m/Y H:i:s', $data['data']['startDate']);
+        $expiredDate = date_create_from_format('d/m/Y H:i:s', $data['data']['startDate']);
 
-            // new PaymentTransaction
-            $transaction = new PaymentTransaction();
-            $transaction->memberId = $member->id;
-            $transaction->transaction_id = $data['data']['payLinkId'];
-            $transaction->payment_url = $data['data']['paymentUrl'];
-            $transaction->amount = $data['data']['amount'];
-            $transaction->paylink_token = $data['data']['payLinkToken'];
-            $transaction->startDate = $startDate->getTimestamp();
-            $transaction->expiredDate = $expiredDate->getTimestamp();
-            $transaction->isExpired = false;
-            $transaction->save();
+        // new PaymentTransaction
+        $transaction = new PaymentTransaction();
+        $transaction->memberId = $member->id;
+        $transaction->transaction_id = $data['data']['payLinkId'];
+        $transaction->payment_url = $data['data']['paymentUrl'];
+        $transaction->amount = $data['data']['amount'];
+        $transaction->paylink_token = $data['data']['payLinkToken'];
+        $transaction->startDate = $startDate->getTimestamp();
+        $transaction->expiredDate = $expiredDate->getTimestamp();
+        $transaction->isExpired = false;
+        $transaction->save();
         // }
 
         return json_encode($transaction);
@@ -124,8 +124,10 @@ class PaymentController extends Controller
             $member->save();
 
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            $transaction->isExpired = true;
-            $transaction->save();
+            if ($$transaction != null) {
+                $transaction->isExpired = true;
+                $transaction->save();
+            }
 
             // send email
             Mail::to($member->email)->send(new PaymentMail($member));
@@ -133,8 +135,10 @@ class PaymentController extends Controller
             return redirect()->route('register.show', $member->reference)->with('success', 'Payment Success');
         } else {
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            $transaction->isExpired = true;
-            $transaction->save();
+            if ($$transaction != null) {
+                $transaction->isExpired = true;
+                $transaction->save();
+            }
 
             switch ($data['data']['status']) {
                 case 'Cancel':
@@ -142,7 +146,7 @@ class PaymentController extends Controller
                     break;
 
                 default:
-                    return redirect()->route('register.show', $member->reference->with('error', 'Payment Failed'));
+                    return redirect()->route('register.show', $member->reference)->with('error', 'Payment Failed');
                     break;
             }
         }
@@ -188,15 +192,19 @@ class PaymentController extends Controller
             $member->save();
 
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            $transaction->isExpired = true;
-            $transaction->save();
+            if ($$transaction != null) {
+                $transaction->isExpired = true;
+                $transaction->save();
+            }
 
             // send email
             Mail::to($member->email)->send(new PaymentMail($member));
         } else {
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            $transaction->isExpired = true;
-            $transaction->save();
+            if ($$transaction != null) {
+                $transaction->isExpired = true;
+                $transaction->save();
+            }
         }
     }
 
@@ -306,5 +314,72 @@ class PaymentController extends Controller
     {
         $member = Member::where('reference', $reference)->first();
         Mail::to($member->email)->send(new RegisterMail($member));
+    }
+
+    public function getpayment($reference)
+    {
+        $CHILLPAY_MerchantCode = "M034382";
+        $CHILLPAY_ApiKey = "fS03cRf0J3n6HYxbWn1mq0wWIqh9TMf5wyOYS5Ra0HecM4emEcn4THyYQNqSSYnu";
+        $CHILLPAY_SecretKey = "IiolpbZ8vdOLX101eW9L4YIKySKZz2ef9GJvuaGPPZmb9aBixaye3fFp6TsRkFPK6DmXb0sXxBzEfM50vkfUMnvpl3IqsPu2gZcBKacD6Q1T9zw9o84H842ld00nzUx9HSyYl1TqFBg9anLzXa8cTIGcnsG7FTOLaMule";
+        $CHILLPAY_PaylinkDetail = "https://api-transaction.chillpay.co/api/v1/payment/details";
+
+        $TransactionId = $reference;
+
+        $rawData = $TransactionId;
+        $secretKey = $CHILLPAY_SecretKey;
+        $checksum = Md5($rawData . $secretKey);
+
+        $header = [
+            'Content-Type' => 'application/json',
+            'Accept' => '*/*',
+            'CHILLPAY-MerchantCode' => $CHILLPAY_MerchantCode,
+            'CHILLPAY-ApiKey' => $CHILLPAY_ApiKey
+        ];
+
+        $payload = [
+            'TransactionId' => $TransactionId,
+            'Checksum' => $checksum
+        ];
+
+        $client = new Client();
+        $response = $client->request('POST', $CHILLPAY_PaylinkDetail, [
+            'headers' => $header,
+            'json' => $payload
+        ]);
+        $data = json_decode($response->getBody(), true);
+        $reference = $data['data']['description'];
+        $member = Member::where('reference', $reference)->first();
+        if ($data['data']['status'] == 'Success') {
+            $member->payment_method = 1;
+            $member->payment_status = 2;
+            $member->save();
+
+            $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
+            if ($transaction != null) {
+                $transaction->isExpired = true;
+                $transaction->save();
+            }
+
+            // send email
+            Mail::to($member->email)->send(new PaymentMail($member));
+
+            return redirect()->route('register.show', $member->reference)->with('success', 'Payment Success');
+        } else {
+            $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
+            if ($transaction != null) {
+                $transaction->isExpired = true;
+                $transaction->save();
+            }
+
+            switch ($data['data']['status']) {
+                case 'Cancel':
+                    return redirect()->route('register.show', $member->reference)->with('error', 'Payment Cancelled');
+                    break;
+
+                default:
+                    return redirect()->route('register.show', $member->reference)->with('error', 'Payment Failed');
+                    break;
+            }
+        }
     }
 }
