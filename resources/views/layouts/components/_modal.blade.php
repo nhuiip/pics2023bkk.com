@@ -5,7 +5,7 @@
                 <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     onclick="localStorage.setItem('displayPopup', true)"></button>
                     {{ $_COOKIE['displayPopup'] }}
-                <img src="{{ asset('img/2ndannouncement-02-02.jpg') }}" alt="" width="100%">
+                <img src="{{ asset('img/2ndannouncement-02-02-02.jpg') }}" alt="" width="100%">
             </div>
         </div>
     </div>

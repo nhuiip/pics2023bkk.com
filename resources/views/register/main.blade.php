@@ -214,7 +214,7 @@
                             <div class="col-md-8">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="{{ true }}"
-                                        name="isConsentPdpa" id="isConsentPdpa" onclick="checkConsent(this)">
+                                        name="isConsentPdpa" id="isConsentPdpa" onclick="checkConsent(this)" style="border: 1px solid rgba(8, 60, 130, 0.5);">
                                     <label class="form-check-label" for="flexCheckDefault"> I have read the above and
                                         fully understood all <a href="#" data-bs-toggle="modal"
                                             data-bs-target="#modal-01"><u><i>contents</i></u></a>, Agree and
@@ -222,7 +222,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="{{ true }}"
-                                        name="isConsentCondition" id="isConsentCondition" onclick="checkConsent(this)">
+                                        name="isConsentCondition" id="isConsentCondition" onclick="checkConsent(this)" style="border: 1px solid rgba(8, 60, 130, 0.5);">
                                     <label class="form-check-label" for="flexCheckDefault">The conferences handout
                                         including content copyright by PICS Committee. editing, revising and copying are
                                         prohibited</label>
