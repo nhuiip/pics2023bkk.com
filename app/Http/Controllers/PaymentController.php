@@ -124,7 +124,7 @@ class PaymentController extends Controller
             $member->save();
 
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            if ($$transaction != null) {
+            if ($transaction != null) {
                 $transaction->isExpired = true;
                 $transaction->save();
             }
@@ -135,7 +135,7 @@ class PaymentController extends Controller
             return redirect()->route('register.show', $member->reference)->with('success', 'Payment Success');
         } else {
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            if ($$transaction != null) {
+            if ($transaction != null) {
                 $transaction->isExpired = true;
                 $transaction->save();
             }
@@ -192,7 +192,7 @@ class PaymentController extends Controller
             $member->save();
 
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            if ($$transaction != null) {
+            if ($transaction != null) {
                 $transaction->isExpired = true;
                 $transaction->save();
             }
@@ -201,7 +201,7 @@ class PaymentController extends Controller
             Mail::to($member->email)->send(new PaymentMail($member));
         } else {
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
-            if ($$transaction != null) {
+            if ($transaction != null) {
                 $transaction->isExpired = true;
                 $transaction->save();
             }
@@ -361,7 +361,7 @@ class PaymentController extends Controller
             }
 
             // send email
-            Mail::to($member->email)->send(new PaymentMail($member));
+            // Mail::to($member->email)->send(new PaymentMail($member));
 
             return redirect()->route('register.show', $member->reference)->with('success', 'Payment Success');
         } else {
