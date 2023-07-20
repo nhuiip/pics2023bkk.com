@@ -82,7 +82,7 @@ class RegisterController extends Controller
         $data->save();
 
         // update data
-        $reference = 'M-' . date('Ymdhis', strtotime($data->created_at)) . '-' . str_pad($data->id, 5, "0", STR_PAD_LEFT);
+        $reference = 'F-' . date('Ymdhis', strtotime($data->created_at)) . '-' . str_pad($data->id, 5, "0", STR_PAD_LEFT);
         $password = Str::random(8);
         $data->reference = $reference;
         $data->password = bcrypt($password);
@@ -96,7 +96,7 @@ class RegisterController extends Controller
         return redirect()->route('register.show', $data->reference);
     }
 
-    public function testmail($reference = 'M-20230713083250-00001')
+    public function testmail($reference = 'F-20230713083250-00001')
     {
         $member = Member::where('reference', $reference)->first();
         Mail::to($member->email)->send(new PaymentMail($member));

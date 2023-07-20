@@ -112,6 +112,9 @@
         @include('layouts.components._navbar')
         @yield('content')
         @include('layouts.components._footer')
+        @empty($_COOKIE['displayPopup'])
+            @include('layouts.components._modal')
+        @endempty
         @if (isset($_COOKIE['displayPopup']) && $_COOKIE['displayPopup'] != 'true')
             @include('layouts.components._modal')
         @endif
