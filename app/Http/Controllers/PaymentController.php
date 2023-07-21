@@ -121,6 +121,7 @@ class PaymentController extends Controller
         if ($data['data']['status'] == 'Success') {
             $member->payment_method = 1;
             $member->payment_status = 2;
+            $member->transaction_id = $TransactionId;
             $member->save();
 
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
@@ -189,6 +190,7 @@ class PaymentController extends Controller
         if ($data['data']['status'] == 'Success') {
             $member->payment_method = 1;
             $member->payment_status = 2;
+            $member->transaction_id = $TransactionId;
             $member->save();
 
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
@@ -352,6 +354,7 @@ class PaymentController extends Controller
         if ($data['data']['status'] == 'Success') {
             $member->payment_method = 1;
             $member->payment_status = 2;
+            $member->transaction_id = $TransactionId;
             $member->save();
 
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();

@@ -215,10 +215,13 @@
         let url = window.location.href
         let index = url.search("#");
         if (index) {
-            let target = url.slice(index+1)
+            let target = url.slice(index + 1)
             let el = document.getElementById(target);
             el.scrollIntoView(true);
-        }! function(d, s, id) {
+        }
+    </script>
+    <script>
+        ! function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (!d.getElementById(id)) {
                 js = d.createElement(s);

@@ -110,7 +110,7 @@
                         <div class="row mb-5 justify-content-center">
                             <hr class="m-3">
                             <div class="col-md-4">
-                                <button class="btn btn-success w-100">Save</button>
+                                <button class="btn btn-success w-100">Submit</button>
                             </div>
                         </div>
                     </div>

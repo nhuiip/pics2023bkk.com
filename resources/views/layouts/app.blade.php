@@ -112,14 +112,9 @@
         @include('layouts.components._navbar')
         @yield('content')
         @include('layouts.components._footer')
-        @empty($_COOKIE['displayPopup'])
-            @include('layouts.components._modal')
-        @endempty
-        @if (isset($_COOKIE['displayPopup']) && $_COOKIE['displayPopup'] != 'true')
-            @include('layouts.components._modal')
-        @endif
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script type="text/javascript" src=""></script> --}}
 
     <script src="{{ asset('js/plugins.js') }}"></script>
@@ -166,6 +161,53 @@
             }
             document.cookie = "displayPopup" + "=" + "true" + expires + "; path=/";
         })
+    </script>
+    <script>
+        function sendPassword(e) {
+            let url = "{!! route('sent-password') !!}";
+            let token = $('meta[name="csrf-token"]').attr('content');
+
+            Swal.fire({
+                title: 'Please enter the email you used to apply.',
+                input: 'email',
+                inputAttributes: {
+                    autocapitalize: 'on'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                preConfirm: (email) => {
+                    return $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            _token: token,
+                            email: email
+                        },
+                        success: function(response) {
+                            if (response == true) {
+                                return response;
+                            } else {
+                                Swal.showValidationMessage(response);
+                            }
+                        }
+                    })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Your password has been sent again.',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                } else {
+                    Swal.close();
+                }
+            })
+        }
     </script>
     @yield('script')
 </body>
