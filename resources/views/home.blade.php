@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     @include('layouts.components._banner', ['data' => asset('img/banner-1.jpg')])
-    @include('layouts.components._modal')
     {{-- 1 --}}
     <section class="wrapper bg-light">
         <div class="container pt-5">
+			@include('layouts.components._modal')
             {{-- Announcement --}}
             <div class="row text-center">
                 <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -107,7 +107,7 @@
                                             </span>
                                             <span class="col-12 col-md-12 col-lg-12 text-body d-flex align-items-center">
                                                 <i class="uil uil-clock me-1"></i>
-                                                {{ date('h:i', strtotime($item->startTime)) . ' - ' . date('h:i', strtotime($item->endTime)) }}
+                                                {{ date('g:i A', strtotime($item->startTime)) . ' - ' . date('g:i A', strtotime($item->endTime)) }}
                                             </span>
                                         </span>
                                     </div>

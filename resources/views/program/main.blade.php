@@ -57,9 +57,11 @@
 @endsection
 @section('script')
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
+	<script src="https://momentjs.com/downloads/moment-timezone.js"></script>
     <script>
         getData()
-
+		moment.tz.add('Asia/Bangkok|ICT|-00|0|');
+		
         function getData() {
             let date = $('#date').val();
             let keyword = $('#keyword').val();
@@ -80,7 +82,9 @@
                             let highlight = '';
                             let html = '';
                             if (element.itemHighlight) {
+								
                                 element.itemHighlight.forEach(item => {
+									console.log(item.startTime)
                                     highlight += '<div class="swiper-slide">' +
                                         '<div class="item-inner">' +
                                         '<article>' +
@@ -92,8 +96,8 @@
                                         '</a>' +
                                         '<p>' + item.room + '</p>' +
                                         '<p class="m-0">' +
-                                        moment(item.startTime).format('h:mm') +
-                                        ' - ' + moment(item.endTime).format('h:mm') +
+                                        moment(item.startTime).tz('Asia/Bangkok').format('h:mm a') +
+                                        ' - ' + moment(item.endTime).tz('Asia/Bangkok').format('h:mm a') +
                                         '</p>' +
                                         '</div>' +
                                         '</div>' +
@@ -103,7 +107,7 @@
                                 })
                             }
                             if (element.item) {
-                                console.log("element.item", element.item);
+                                //console.log("element.item", element.item);
                                 element.item.forEach(item => {
                                     html += '<div class="swiper-slide">' +
                                         '<div class="item-inner">' +
@@ -115,9 +119,9 @@
                                         '</h2>' +
                                         '</a>' +
                                         '<p>' + item.room + '</p>' +
-                                        '<p class="m-0">' + moment(item.startTime).format(
-                                            'h:mm') +
-                                        ' - ' + moment(item.endTime).format('h:mm') + '</p>' +
+                                        '<p class="m-0">' + moment(item.startTime).tz('Asia/Bangkok').format(
+                                            'h:mm a') +
+                                        ' - ' + moment(item.endTime).tz('Asia/Bangkok').format('h:mm a') + '</p>' +
                                         '</div>' +
                                         '</div>' +
                                         ' </article>' +

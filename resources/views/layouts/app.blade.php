@@ -102,6 +102,10 @@
             padding: 0.5rem 1rem;
         }
 
+        .progress-wrap:after {
+            content: "\ebfe" !important;
+        }
+
         /* end */
     </style>
     @yield('style')
@@ -112,6 +116,13 @@
         @include('layouts.components._navbar')
         @yield('content')
         @include('layouts.components._footer')
+        <div class="progress-wrap active-progress" onclick="contact(this)" data-url="{{ route('contact') }}">
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                    style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 204.992;">
+                </path>
+            </svg>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -163,6 +174,11 @@
         })
     </script>
     <script>
+        function contact(e) {
+            let url = $(e).attr('data-url');
+            location.href = url;
+        }
+
         function sendPassword(e) {
             let url = "{!! route('sent-password') !!}";
             let token = $('meta[name="csrf-token"]').attr('content');

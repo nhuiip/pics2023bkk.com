@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use App\Models\Country;
 use App\Models\Member;
 use App\Models\MembersVisa;
@@ -10,7 +11,9 @@ use App\Models\Program;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use PDF;
+use Svg\Tag\Rect;
 
 class HomeController extends Controller
 {
@@ -137,5 +140,36 @@ class HomeController extends Controller
             // return $pdf->stream();
             return $pdf->download(date('YmdhisA', strtotime(now())) . '.pdf');
         }
+    }
+
+    public function contact()
+    {
+        return view('contact');
+    }
+
+    public function sendContact(Request $request)
+    {
+        $data["name"] = $request->name;
+        $data["email"] = $request->email;
+        $data["subject"] = $request->subject;
+        $data["body"] = $request->message;
+
+        $files = array();
+        if ($request->file('files') != null) {
+            foreach ($request->file('files') as $file) {
+                $upload = $file->move(public_path() . '/uploads/', $file->getClientOriginalName());
+                array_push($files, $upload);
+            }
+        }
+
+        Mail::send('mail-contact', $data, function ($message) use ($data, $files) {
+            $message->to("anupong.n@informa.com", $data["email"])
+                ->subject('Contact Form: pics2023bkk.com');
+
+            foreach ($files as $file) {
+                $message->attach($file);
+            }
+        });
+        return redirect()->route('contact');
     }
 }

@@ -32,6 +32,8 @@ Route::get('/visa', [App\Http\Controllers\HomeController::class, 'visa'])->name(
 Route::post('/visastore', [App\Http\Controllers\HomeController::class, 'visastore'])->name('visastore');
 Route::get('/genpdf', [App\Http\Controllers\HomeController::class, 'genpdf'])->name('genpdf');
 Route::post('/sent-password', [App\Http\Controllers\HomeController::class, 'sendPassword'])->name('sent-password');
+Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
+Route::post('/send-contact', [App\Http\Controllers\HomeController::class, 'sendContact'])->name('send-contact');
 Route::resource('news', NewsController::class);
 Route::resource('hotels', HotelController::class);
 Route::resource('programs', ProgramController::class);

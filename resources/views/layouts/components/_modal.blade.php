@@ -8,7 +8,7 @@
             </div>
             <div class="modal-footer p-3 ">
                 <a class="btn btn-primary mx-auto" href="{{asset('PICS2023BKK-Registration-Process.pdf')}}" download target="_blank">
-                    Click to Download Registration Guideline
+                    Download Registration Guideline
                 </a>
             </div>
         </div>

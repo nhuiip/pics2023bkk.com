@@ -8,8 +8,8 @@
     <div class="footer" style="background-image: url('{{ asset('img/footer.png') }}')">
         <div class="container pt-5 pb-0">
             {{-- <h4 class="text-white">Follow us on</h4> --}}
-            <h4 class="text-white mb-0" class="">For more information, please contact</h4>
-            <a href="mailto:druginspection@fda.moph.go.th"><p class="text-white mb-0">druginspection@fda.moph.go.th</p></a>
+            <h4 class="text-white-50 mb-0" class="">For more information, please contact</h4>
+            <a href="mailto:druginspection@fda.moph.go.th"><p class="text-white-50 mb-0">druginspection@fda.moph.go.th</p></a>
             {{-- <a href="{{ $facebook->value }}" @if ($facebook->value != '' && $facebook->value != null) target="_blank" @endif>
                 <img src="{{ asset('img/facebook.png') }}" alt="" width="40px">
             </a>

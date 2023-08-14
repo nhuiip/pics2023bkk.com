@@ -52,7 +52,7 @@
                                                         </h4>
                                                         <div class="prices text-dark mb-5">
                                                             <div class="price price-show"><span
-                                                                    class="price-currency">$</span><span
+                                                                    class="price-currency">USD</span><span
                                                                     class="price-value">{{ $standard->price }}</span></div>
                                                         </div>
                                                         <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
