@@ -104,6 +104,14 @@
 
         .progress-wrap:after {
             content: "\ebfe" !important;
+            font-size: 1.75rem !important;
+            line-height: 3rem;
+            height: 3rem;
+            width: 3rem;
+        }
+
+        .progress-wrap.wrap-text:after {
+            content: unset !important;
         }
 
         /* end */
@@ -116,7 +124,11 @@
         @include('layouts.components._navbar')
         @yield('content')
         @include('layouts.components._footer')
-        <div class="progress-wrap active-progress" onclick="contact(this)" data-url="{{ route('contact') }}">
+        <div class="progress-wrap wrap-text active-progress"
+            style="width: 5rem;text-align: center;line-height: 1;font-weight: bold;color: #747ed1;bottom: 3.5rem;box-shadow: unset;font-size: 0.8rem;">
+            CONTACT US
+        </div>
+        <div class="progress-wrap active-progress" onclick="contact(this)" data-url="{{ route('contact') }}" style="width: 3rem;height: 3rem">
             <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
                 <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
                     style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 204.992;">

@@ -32194,11 +32194,11 @@ button.hamburger span {
     transition: none;
   }
 }
-@media (min-width: 576px) {
+/* @media (min-width: 576px) { */
   .progress-wrap.active-progress {
     opacity: 1;
   }
-}
+/* } */
 .btn-close {
   padding: 0 0;
   color: #343f52;
