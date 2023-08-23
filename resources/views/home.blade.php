@@ -4,7 +4,15 @@
     {{-- 1 --}}
     <section class="wrapper bg-light">
         <div class="container pt-5">
-			@include('layouts.components._modal')
+            @auth
+                {{-- Modal --}}
+                @if (!empty($_COOKIE['displayPopupModalBeforeLogin']))
+                    @include('layouts.components._modal')
+                @endif
+            @endauth
+            @guest
+                @include('layouts.components._modal')
+            @endguest
             {{-- Announcement --}}
             <div class="row text-center">
                 <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -97,7 +105,7 @@
                                 <div class="card bg-transparent">
                                     <div class="card-body pl-5 pr-5 pt-3 pt-md-0 pb-3">
                                         <span class="row justify-content-between align-items-center">
-                                            <a href="{{route('programs.show', $item->id)}}">
+                                            <a href="{{ route('programs.show', $item->id) }}">
                                                 <span
                                                     class="col-sm-12 col-md-12 col-lg-12 mb-2 d-flex align-items-center text-body">
                                                     {{ $item->name }} </span>

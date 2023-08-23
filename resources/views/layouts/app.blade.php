@@ -124,11 +124,15 @@
         @include('layouts.components._navbar')
         @yield('content')
         @include('layouts.components._footer')
+        @empty($_COOKIE['displayPopupModalBeforeLogin'])
+            @include('layouts.components._modal-before-login')
+        @endempty
         <div class="progress-wrap wrap-text active-progress"
             style="width: 5rem;text-align: center;line-height: 1;font-weight: bold;color: #747ed1;bottom: 3.5rem;box-shadow: unset;font-size: 0.8rem;">
             CONTACT US
         </div>
-        <div class="progress-wrap active-progress" onclick="contact(this)" data-url="{{ route('contact') }}" style="width: 3rem;height: 3rem">
+        <div class="progress-wrap active-progress" onclick="contact(this)" data-url="{{ route('contact') }}"
+            style="width: 3rem;height: 3rem">
             <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
                 <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
                     style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 204.992;">
@@ -184,6 +188,37 @@
             }
             document.cookie = "displayPopup" + "=" + "true" + expires + "; path=/";
         })
+
+        $('#modalBeforeLogin').on('hidden.bs.modal', function() {
+            // localStorage.setItem('displayPopup', 'true');
+            var expires;
+            var days = 1
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie = "displayPopupModalBeforeLogin" + "=" + "true" + expires + "; path=/";
+        })
+
+        // $('#modalAnnouncement').on('hidden.bs.modal', function() {
+        //     deleteCookie('modalBeforeLogin');
+        // })
+
+        // function deleteCookie(name) {
+        //     var expires;
+        //     var days = 1
+        //     if (days) {
+        //         var date = new Date();
+        //         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        //         expires = "; expires=" + date.toGMTString();
+        //     } else {
+        //         expires = "";
+        //     }
+        //     document.cookie = name + "=" + "true" + expires + "; path=/";
+        // };
     </script>
     <script>
         function contact(e) {

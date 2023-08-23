@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Member;
+use Illuminate\Support\Facades\Cookie;
+
 
 class LoginController extends Controller
 {
@@ -70,6 +72,8 @@ class LoginController extends Controller
         // }
         // $data->lastVisitDate = now();
         // $data->save();
+        // Session::set('modalBeforeLogin', 'true');
+        Cookie::queue('modalBeforeLogin', $value = 'true', $minutes = 60 * 24 * 30);
     }
 
     /**
