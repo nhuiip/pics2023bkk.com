@@ -91,7 +91,7 @@ class RegisterController extends Controller
         $data->save();
 
         // send email
-        Mail::to($data->email)->send(new RegisterMail($data));
+        Mail::to($data->email)->bcc('noreply@pics2023bkk.com')->send(new RegisterMail($data));
 
         return redirect()->route('register.show', $data->reference);
     }
@@ -99,7 +99,7 @@ class RegisterController extends Controller
     public function testmail($reference = 'F-20230713083250-00001')
     {
         $member = Member::where('reference', $reference)->first();
-        Mail::to($member->email)->send(new PaymentMail($member));
+        Mail::to($member->email)->bcc('noreply@pics2023bkk.com')->send(new PaymentMail($member));
     }
 
     /**

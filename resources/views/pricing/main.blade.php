@@ -55,8 +55,15 @@
                                                                     class="price-currency">USD</span><span
                                                                     class="price-value">{{ $standard->price }}</span></div>
                                                         </div>
-                                                        <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
-                                                            class="btn btn-primary rounded-pill">Choose Plan</a>
+@if (now() <= '2023-10-31 23:59:59')
+                                                            <a href="{{ route('register.index', ['registrantGroupId' => $value->id, 'registrantTypeId' => $item->id]) }}"
+                                                                class="btn btn-primary rounded-pill">
+                                                                Choose Plan
+                                                            </a>
+                                                        @else
+                                                            <button class="btn btn-primary rounded-pill"
+                                                                disabled>Choose Plan</button>
+                                                        @endif
                                                         {{-- <a href="#" class="btn btn-primary rounded-pill">Choose
                                                             Plan</a> --}}
                                                     </div>
@@ -70,6 +77,20 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="modal fade modal-popup" id="modalBeforeLogin" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal">
+                <div class="modal-content">
+                    <div class="modal-body p-5">
+                        {{-- <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                        {{-- <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="deleteCookie('modalBeforeLogin')"></button> --}}
+                        {{-- <br> --}}
+                        <br>
+                        <p>Closing for register at 23:59 31/10/2023 (GMT +00:00) or 6.59 AM (GMT+7)</p>
                     </div>
                 </div>
             </div>

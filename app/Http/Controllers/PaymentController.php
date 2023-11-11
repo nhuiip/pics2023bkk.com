@@ -131,7 +131,7 @@ class PaymentController extends Controller
             }
 
             // send email
-            Mail::to($member->email)->send(new PaymentMail($member));
+            Mail::to($member->email)->bcc('noreply@pics2023bkk.com')->send(new PaymentMail($member));
 
             return redirect()->route('register.show', $member->reference)->with('success', 'Payment Success');
         } else {
@@ -200,7 +200,7 @@ class PaymentController extends Controller
             }
 
             // send email
-            Mail::to($member->email)->send(new PaymentMail($member));
+            Mail::to($member->email)->bcc('noreply@pics2023bkk.com')->send(new PaymentMail($member));
         } else {
             $transaction = PaymentTransaction::where('memberId', $member->id)->where('isExpired', false)->first();
             if ($transaction != null) {
@@ -315,7 +315,7 @@ class PaymentController extends Controller
     public function testmail($reference)
     {
         $member = Member::where('reference', $reference)->first();
-        Mail::to($member->email)->send(new RegisterMail($member));
+        Mail::to($member->email)->bcc('noreply@pics2023bkk.com')->send(new RegisterMail($member));
     }
 
     public function getpayment($reference)
@@ -364,7 +364,7 @@ class PaymentController extends Controller
             }
 
             // send email
-            // Mail::to($member->email)->send(new PaymentMail($member));
+            // Mail::to($member->email)->bcc('noreply@pics2023bkk.com')->send(new PaymentMail($member));
 
             return redirect()->route('register.show', $member->reference)->with('success', 'Payment Success');
         } else {

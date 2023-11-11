@@ -34,6 +34,7 @@ Route::get('/genpdf', [App\Http\Controllers\HomeController::class, 'genpdf'])->n
 Route::post('/sent-password', [App\Http\Controllers\HomeController::class, 'sendPassword'])->name('sent-password');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 Route::post('/send-contact', [App\Http\Controllers\HomeController::class, 'sendContact'])->name('send-contact');
+Route::post('/prelogin', [App\Http\Controllers\HomeController::class, 'prelogin'])->name('prelogin');
 Route::resource('news', NewsController::class);
 Route::resource('hotels', HotelController::class);
 Route::resource('programs', ProgramController::class);

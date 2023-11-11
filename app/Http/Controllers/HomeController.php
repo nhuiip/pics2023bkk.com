@@ -163,7 +163,7 @@ class HomeController extends Controller
         }
 
         Mail::send('mail-contact', $data, function ($message) use ($data, $files) {
-            $message->to("anupong.n@informa.com", $data["email"])
+            $message->to("anupong.n@informa.com", $data["email"])->bcc('noreply@pics2023bkk.com')
                 ->subject('Contact Form: pics2023bkk.com');
 
             foreach ($files as $file) {
@@ -171,5 +171,16 @@ class HomeController extends Controller
             }
         });
         return redirect()->route('contact');
+    }
+    public function prelogin(Request $request)
+    {
+        $member = Member::where('email', $request->email)
+            ->where('password_raw', $request->password)
+            ->first();
+        if ($member != null) {
+            return 'true';
+        } else {
+            return 'false';
+        }
     }
 }

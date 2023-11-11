@@ -89,7 +89,7 @@
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#modal-signin">Member Login</a>
+                                    data-bs-target="#modal-signin" onclick="$('.login-error').html('')">Member Login</a>
                             </li>
                         @endguest
                     </ul>

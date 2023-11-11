@@ -173,6 +173,31 @@
                 },
             });
         }
+
+        function preLogin() {
+            let email = $('#loginEmail').val();
+            let password = $('#loginPassword').val();
+            if (email == '' || password == '') {
+                $('.login-error').html('Please fill in your email and password.');
+            } else {
+                $.ajax({
+                    url: "{{ route('prelogin') }}",
+                    type: "POST",
+                    data: {
+                        email: email,
+                        password: password
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        // console.log(data);
+                        if(data == 'false'){
+                            $('.login-error').html('Your email or password is incorrect.');
+                        } else {
+                            $('#formLogin').submit();
+                        }
+                    },
+                });
+            }
+        }
     </script>
     <script>
         $('#modalAnnouncement').on('hidden.bs.modal', function() {

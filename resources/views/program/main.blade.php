@@ -47,6 +47,7 @@
                         onkeydown="getData()">
                 </div>
                 <hr style="margin-bottom: 0.5rem">
+				<span class="m-3">Please swipe left or right to see the topic and click download an attachment.</span>
                 <div id="data-programe" class="mt-0">
 
                 </div>

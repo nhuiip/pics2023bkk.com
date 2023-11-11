@@ -23,7 +23,7 @@ Please review the following details;
 </p>
 <p>Account No: 142-0-32966-9</p>
 <br>
-<p>When your payment is completed, you will receive an email confirmation for further process. </p>
+<p>When your payment is completed, please send payin slip for our reference to fdafoundationpayment@gmail.com  you will receive an email confirmation for further process.</p>
 <hr>
 {{-- <table>
     <tbody>
