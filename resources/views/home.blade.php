@@ -42,7 +42,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <p><strong>{{ $value->name }}</strong></p>
-                                                    {!! \Illuminate\Support\Str::limit($value->content, $limit = 800, $end = '...') !!}
+                                                    {!! \Illuminate\Support\Str::limit(strip_tags($value->content), $limit = 800, $end = '...') !!}
                                                 </div>
                                             </div>
                                         </div>
